@@ -19,7 +19,7 @@ public class EventHandler implements ElementEventListener {
     private GameEventListener gameEventListener;
     private GameWorld gameWorld;
 
-    public EventHandler(GameEventListener gameEventListener, GameWorld gameWorld) {
+    EventHandler(GameEventListener gameEventListener, GameWorld gameWorld) {
         this.gameEventListener = gameEventListener;
         this.gameWorld = gameWorld;
     }
@@ -35,6 +35,7 @@ public class EventHandler implements ElementEventListener {
         for (MovingGameElement element : cell.getMovingElements()) {
             if (element instanceof Pacman) {
                 pacmanFound = true;
+                break;
             }
         }
         if (pacmanFound) {
@@ -107,9 +108,7 @@ public class EventHandler implements ElementEventListener {
 
         ArrayList<MovingGameElement> movers = new ArrayList();
         for (Cell cell : gameWorld.getCells()) {
-            for (MovingGameElement mover : cell.getMovingElements()) {
-                movers.add(mover);
-            }
+            movers.addAll(cell.getMovingElements());
         }
         for (MovingGameElement mover : movers) {
             mover.reset();

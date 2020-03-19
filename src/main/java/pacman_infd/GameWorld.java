@@ -41,7 +41,7 @@ public class GameWorld {
     private Portal portalBlue;
     private Portal portalOrange;
 
-    public GameWorld(GameController gameController, char[][] levelMap, SoundManager sMger, View view, int speed) {
+    GameWorld(GameController gameController, char[][] levelMap, SoundManager sMger, View view, int speed) {
 
         soundManager = sMger;
         this.view = view;
@@ -172,7 +172,7 @@ public class GameWorld {
      *
      * @return number of pellets
      */
-    public int countPellets() {
+    private int countPellets() {
         int number = 0;
         for (Cell cell : cells) {
             if (cell.getStaticElement() instanceof Pellet) {
@@ -185,7 +185,7 @@ public class GameWorld {
     /**
      * Places a cherry on a random cell that has no static element.
      */
-    public void placeCherryOnRandomEmptyCell() {
+    void placeCherryOnRandomEmptyCell() {
         if (countPellets() == numberOfPelletsAtStart / 2) {
             ArrayList<Cell> emptyCells = getEmptyCells();
             Random r = new Random();
@@ -195,7 +195,7 @@ public class GameWorld {
         }
     }
 
-    public void spawnPortal(int x, int y, int mouseButton) {
+    void spawnPortal(int x, int y, int mouseButton) {
         int cellX = x / CELL_SIZE;
         int cellY = y / CELL_SIZE;
         findNeighbors();
@@ -231,7 +231,7 @@ public class GameWorld {
         }
     }
     
-    public void clearGameWorld(){
+    void clearGameWorld(){
         for(Cell cell: cells){
             cell.clearCell();
         }
@@ -266,36 +266,36 @@ public class GameWorld {
     /**
      * @return the portalBlue
      */
-    public Portal getPortalBlue() {
+    Portal getPortalBlue() {
         return portalBlue;
     }
 
     /**
      * @param portalBlue the portalBlue to set
      */
-    public void setPortalBlue(Portal portalBlue) {
+    void setPortalBlue(Portal portalBlue) {
         this.portalBlue = portalBlue;
     }
 
     /**
      * @return the portalOrange
      */
-    public Portal getPortalOrange() {
+    Portal getPortalOrange() {
         return portalOrange;
     }
 
     /**
      * @param portalOrange the portalOrange to set
      */
-    public void setPortalOrange(Portal portalOrange) {
+    void setPortalOrange(Portal portalOrange) {
         this.portalOrange = portalOrange;
     }
 
-    public Cell[][] getCellMap() {
+    Cell[][] getCellMap() {
         return cellMap;
     }
 
-    public ArrayList<Cell> getCells() {
+    ArrayList<Cell> getCells() {
         return cells;
     }
 

@@ -12,11 +12,11 @@ import java.net.URI;
  *
  * @author Marinus
  */
-public class FileLoader {
+class FileLoader {
     
     private URI path;
     
-    public FileLoader(URI path){
+    FileLoader(URI path){
         this.path = path;
     }
     
@@ -25,7 +25,7 @@ public class FileLoader {
      * @return String[] of all lines in the text file.
      * @throws IOException 
      */
-    public String[] openFile() throws IOException {
+    private String[] openFile() throws IOException {
         
         FileReader fr = new FileReader(new File(path));
         BufferedReader textReader = new BufferedReader(fr);
@@ -49,7 +49,7 @@ public class FileLoader {
      * @return elementMap
      * @throws IOException 
      */
-    public char[][] openMap() throws IOException {
+    char[][] openMap() throws IOException {
         String[] textData = openFile();
         
         int mapWidth = textData[0].length();

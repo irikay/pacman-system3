@@ -156,7 +156,7 @@ public class Ghost extends MovingGameElement implements Eatable{
     /**
      * Revert back to the initial Strategy and initial speed and stops.
      */
-    public void backToNormal() {
+    private void backToNormal() {
         strategy = initialStrategy;
         state = GhostState.NORMAL;
         setSpeed(speed);
@@ -164,7 +164,7 @@ public class Ghost extends MovingGameElement implements Eatable{
         deathTimer.stop();
     }
 
-    public void dead() {
+    private void dead() {
         setSpeed(speed);
         strategy = new ReturnHomeSrategy(startCell);
         state = GhostState.DEAD;

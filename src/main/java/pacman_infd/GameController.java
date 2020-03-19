@@ -31,7 +31,7 @@ public class GameController implements GameEventListener {
     
     private static final int REFRESH_RATE = 10;
 
-    public GameController(View view, ScorePanel scorePanel) {
+    GameController(View view, ScorePanel scorePanel) {
 
         this.view = view;
         this.scorePanel = scorePanel;
@@ -82,7 +82,7 @@ public class GameController implements GameEventListener {
     /**
      * Start a new game, or, if the game is already running, restart the game.
      */
-    public void newGame() {
+    void newGame() {
         if(gameState == GameState.RUNNING){
             pauseGame();
             gameWorld.clearGameWorld();
@@ -124,7 +124,7 @@ public class GameController implements GameEventListener {
     /**
      * Pause game will stop all timers
      */
-    public void pauseGame() {
+    void pauseGame() {
         if (gameState == GameState.RUNNING) {
             for (Cell cell : gameWorld.getCells()) {
                 for (MovingGameElement element: cell.getMovingElements()) {
@@ -153,7 +153,7 @@ public class GameController implements GameEventListener {
      * draw the game at each tick of the game timer.
      * @param e 
      */
-    public void gameTimerActionPerformed(ActionEvent e) {
+    private void gameTimerActionPerformed(ActionEvent e) {
         drawGame();
         scorePanel.setTime(stopWatch.getElepsedTimeMinutesSeconds());
         scorePanel.repaint();
@@ -175,7 +175,7 @@ public class GameController implements GameEventListener {
 
     }
 
-    public GameState getGameState() {
+    GameState getGameState() {
         return gameState;
     }
 
@@ -194,11 +194,11 @@ public class GameController implements GameEventListener {
         scorePanel.repaint();
     }
     
-    public SoundManager getSoundManager(){
+    SoundManager getSoundManager(){
         return soundManager;
     }
     
-    public void mouseClicked(int x, int y, int mouseButton){
+    void mouseClicked(int x, int y, int mouseButton){
         if(gameWorld != null){
              gameWorld.spawnPortal(x, y, mouseButton);  
         }

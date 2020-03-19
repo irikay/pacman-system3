@@ -15,11 +15,11 @@ import java.util.Queue;
  *
  * @author Marinus
  */
-public class LevelManager {
+class LevelManager {
 
     private Queue<char[][]> levels;
 
-    public LevelManager() {
+    LevelManager() {
         levels = new LinkedList();
         loadLevels();
     }
@@ -43,13 +43,13 @@ public class LevelManager {
         }
     }
 
-    public char[][] getFirstLevel() {
+    char[][] getFirstLevel() {
         levels = new LinkedList();
         loadLevels();
         return getNextLevel();
     }
 
-    public char[][] getNextLevel() {
+    char[][] getNextLevel() {
 
         char[][] nextLevel = levels.poll();
         levels.offer(nextLevel);

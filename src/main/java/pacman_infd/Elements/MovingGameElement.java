@@ -20,12 +20,12 @@ import pacman_infd.SoundManager;
  */
 public abstract class MovingGameElement extends GameElement{
 
-    protected Cell startCell;
+    Cell startCell;
     private Timer timer;
-    protected int speed;
+    int speed;
     private ActionListener moveTimerActionListener;
     
-    public MovingGameElement(Cell cell, ElementEventListener gameEventListener, int speed, SoundManager sMger) {
+    MovingGameElement(Cell cell, ElementEventListener gameEventListener, int speed, SoundManager sMger) {
         this.cell = cell;
         this.elementEventListener = gameEventListener;
         cell.addMovingElement(this);
@@ -60,7 +60,7 @@ public abstract class MovingGameElement extends GameElement{
         return startCell;
     }
     
-    public void setSpeed(int speed)
+    void setSpeed(int speed)
     {
         timer.setDelay(speed);
     }

@@ -77,7 +77,7 @@ public class Cell {
         return hasWall;
     }
     
-    public void clearCell(){
+    void clearCell(){
         movingElements = null;
         staticElement = null;
     }
@@ -97,9 +97,7 @@ public class Cell {
      * @param e GameElement
      */
     public void removeMovingElement(MovingGameElement e) {
-        if (movingElements.contains(e)) {
-            movingElements.remove(e);
-        }
+        movingElements.remove(e);
     }
 
     /**
@@ -165,7 +163,7 @@ public class Cell {
      *
      * @return the x position of this cell.
      */
-    public int getXpos() {
+    int getXpos() {
         return xPos;
     }
 
@@ -173,7 +171,7 @@ public class Cell {
      *
      * @return the y position of this cell.
      */
-    public int getYPos() {
+    int getYPos() {
         return yPos;
     }
 
@@ -183,7 +181,7 @@ public class Cell {
      *
      * @param cell parent of this Cell.
      */
-    public void setPathParent(Cell cell) {
+    void setPathParent(Cell cell) {
         pathParent = cell;
     }
 
@@ -191,7 +189,7 @@ public class Cell {
      *
      * @return parent of this Cell in a path
      */
-    public Cell getPathParent() {
+    Cell getPathParent() {
         return pathParent;
     }
 

@@ -20,7 +20,7 @@ public abstract class GameElement {
     protected ElementEventListener elementEventListener;
     protected SoundManager soundManager;
     
-    public GameElement(){
+    protected GameElement(){
         
     }
     
