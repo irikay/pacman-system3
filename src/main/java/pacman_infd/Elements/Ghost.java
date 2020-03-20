@@ -16,7 +16,7 @@ import pacman_infd.ElementEventListener;
 import pacman_infd.Enums.GhostState;
 import pacman_infd.SoundManager;
 import pacman_infd.Strategies.FleeStrategy;
-import pacman_infd.Strategies.ReturnHomeSrategy;
+import pacman_infd.Strategies.ReturnHomeStrategy;
 import pacman_infd.Strategy;
 
 /**
@@ -166,7 +166,7 @@ public class Ghost extends MovingGameElement implements Eatable{
 
     private void dead() {
         setSpeed(speed);
-        strategy = new ReturnHomeSrategy(startCell);
+        strategy = new ReturnHomeStrategy(startCell);
         state = GhostState.DEAD;
         deathTimer.start();
     }

@@ -20,7 +20,6 @@ public class PathFinder {
     private Cell rootCell;
 
     public PathFinder() {
-
     }
 
     /**

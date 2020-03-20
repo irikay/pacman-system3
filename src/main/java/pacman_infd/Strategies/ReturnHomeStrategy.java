@@ -14,12 +14,12 @@ import pacman_infd.Strategy;
  *
  * @author Marinus
  */
-public class ReturnHomeSrategy implements Strategy{
+public class ReturnHomeStrategy implements Strategy{
     
         private PathFinder pathFinder;
         private Cell homeCell;
     
-    public ReturnHomeSrategy(Cell homeCell){
+    public ReturnHomeStrategy(Cell homeCell){
         pathFinder = new PathFinder();
         this.homeCell = homeCell;
     }

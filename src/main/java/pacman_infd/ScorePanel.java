@@ -23,7 +23,7 @@ public class ScorePanel extends JPanel {
     private static final int PANEL_WIDTH = 730;
     private static final int PANEL_HEIGHT = 50;
     
-    public ScorePanel()
+    ScorePanel()
     {
         resetStats();
     }
@@ -31,7 +31,7 @@ public class ScorePanel extends JPanel {
     /**
      * initialize the score and lives to what they should be at the start of the game.
      */
-    public void resetStats()
+    void resetStats()
     {
         score = 0;
         lives = 3;
@@ -51,19 +51,19 @@ public class ScorePanel extends JPanel {
      * Add to current score
      * @param n amount
      */
-    public void addScore(int n)
+    void addScore(int n)
     {
         score += n;
     }
     
-    public int getScore(){
+    int getScore(){
         return score;
     }
     
     /**
      * Subtract one life from the life total.
      */
-    public void loseLife()
+    void loseLife()
     {
         lives--;
     }
@@ -72,7 +72,7 @@ public class ScorePanel extends JPanel {
      * 
      * @return lives
      */
-    public int getLives()
+    int getLives()
     {
         return lives;
     }
@@ -81,7 +81,7 @@ public class ScorePanel extends JPanel {
      * Set time
      * @param time 
      */
-    public void setTime(String time){
+    void setTime(String time){
         this.time = time;
     }
     

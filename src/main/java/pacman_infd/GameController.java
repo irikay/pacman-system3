@@ -27,7 +27,8 @@ public class GameController implements GameEventListener {
     private StopWatch stopWatch;
     private LevelManager levelManager;
     private SoundManager soundManager;
-    private int gameSpeed;
+    private final int minGameSpeed = 100;
+    private int gameSpeed = 250;
     
     private static final int REFRESH_RATE = 10;
 
@@ -38,7 +39,6 @@ public class GameController implements GameEventListener {
         gameState = GameState.PREGAME;
         levelManager = new LevelManager();
         soundManager = new SoundManager();
-        gameSpeed = 250;
 
         ActionListener gameTimerAction = new java.awt.event.ActionListener() {
 
@@ -114,7 +114,7 @@ public class GameController implements GameEventListener {
                 JOptionPane.ERROR_MESSAGE
         );
 
-        if(gameSpeed > 100){
+        if(gameSpeed > minGameSpeed){
             gameSpeed -= 10;
         }
         gameWorld = null;
@@ -155,7 +155,7 @@ public class GameController implements GameEventListener {
      */
     private void gameTimerActionPerformed(ActionEvent e) {
         drawGame();
-        scorePanel.setTime(stopWatch.getElepsedTimeMinutesSeconds());
+        scorePanel.setTime(stopWatch.getElapsedTimeMinutesSeconds());
         scorePanel.repaint();
     }
     

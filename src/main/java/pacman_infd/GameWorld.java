@@ -108,6 +108,7 @@ public class GameWorld {
 
     }
 
+    //todo changer ça
     /**
      * Places walls on the cellMap according to wallMap
      *
@@ -195,6 +196,7 @@ public class GameWorld {
         }
     }
 
+    //todo changer ça
     void spawnPortal(int x, int y, int mouseButton) {
         int cellX = x / CELL_SIZE;
         int cellY = y / CELL_SIZE;

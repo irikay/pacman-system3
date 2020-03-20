@@ -22,9 +22,9 @@ import pacman_infd.Enums.Direction;
  */
 public class PathFinderTest {
 
-    GameController gameController;
-    GameWorld gameWorld;
-    PathFinder pathFinder;
+    private GameController gameController;
+    private GameWorld gameWorld;
+    private PathFinder pathFinder;
 
     public PathFinderTest() {
     }
@@ -78,7 +78,7 @@ public class PathFinderTest {
         assert(path.get(0) == gameWorld.getCellMap()[0][0].getNeighbor(Direction.DOWN));
         Cell pacCell = (Cell)path.get(1);
         //assert that the cell that holds Pacman, holds it as the second element in the list.
-        assert(pacCell.getMovingElements().get(1) == pacman);
+        assert(pacCell.getMovingElements().get(1).equals(pacman));
         
     }
 

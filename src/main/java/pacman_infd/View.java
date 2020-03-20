@@ -36,7 +36,7 @@ public class View extends JFrame implements MouseListener {
     private JButton startButton;
     private JButton pauseButton;
 
-    public View() {
+    View() {
         initComponents();
 
         gameController = new GameController(this, scorePanel);
@@ -89,13 +89,13 @@ public class View extends JFrame implements MouseListener {
         setFocusable(true);
     }
 
-    public Graphics getGameWorldGraphics() {
+    Graphics getGameWorldGraphics() {
 
         return image.getGraphics();
 
     }
 
-    public void drawGameWorld() {
+    void drawGameWorld() {
 
         gamePanel.getGraphics().drawImage(image, 0, 0, null);
 

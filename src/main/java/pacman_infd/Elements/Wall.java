@@ -24,6 +24,7 @@ public class Wall extends GameElement {
         this.type = type;
     }
 
+    //todo switch
     @Override
     public void draw(Graphics g) {
 

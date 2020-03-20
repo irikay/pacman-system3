@@ -59,6 +59,7 @@ public class Portal extends GameElement {
         return linkedPortal;
     }
 
+    //todo voir ça
     @Override
     public void draw(Graphics g) {
 

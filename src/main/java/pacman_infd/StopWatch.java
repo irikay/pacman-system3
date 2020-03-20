@@ -6,30 +6,30 @@ package pacman_infd;
  *
  * @author remcoruijsenaars
  */
-public class StopWatch {
+class StopWatch {
     
     private long startTime;
     private long elapsedTime;
     
     private boolean isRunning;
     
-    public StopWatch(){
+    StopWatch(){
         reset();
     }
     
-    public void reset(){
+    void reset(){
         elapsedTime = 0;
         isRunning = false;
     }
     
-    public void start(){
+    void start(){
         if(!isRunning){
             isRunning = true;
             startTime = System.currentTimeMillis();
         }
     }
     
-    public void stop(){
+    void stop(){
         if(isRunning){
            isRunning = false;
            long stopTime = System.currentTimeMillis();
@@ -38,7 +38,7 @@ public class StopWatch {
         
     }
     
-    public long getElapsedTime(){
+    private long getElapsedTime(){
         if(isRunning){
             long endTime = System.currentTimeMillis();
             return elapsedTime + endTime - startTime;
@@ -48,7 +48,7 @@ public class StopWatch {
         }
     }
     
-    public String getElepsedTimeMinutesSeconds(){
+    String getElapsedTimeMinutesSeconds(){
         long time = getElapsedTime();
         long seconds = (time / 1000) % 60;
         long minutes = (time / (1000 * 60)) % 60;
