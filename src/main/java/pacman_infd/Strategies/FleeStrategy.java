@@ -18,7 +18,7 @@ import pacman_infd.Strategy;
  */
 public class FleeStrategy implements Strategy {
 
-    private PathFinder pathFinder;
+    private final PathFinder pathFinder;
     private Cell previousCell;
 
     public FleeStrategy(){
@@ -31,7 +31,7 @@ public class FleeStrategy implements Strategy {
         Cell towardsPacman = pathFinder.nextCellInPathToPacman(currentCell);
        
         for(Cell cell : (Collection<Cell>)currentCell.getNeighbors().values()){
-            if(!cell.hasWall() && cell != towardsPacman && cell != previousCell){
+            if(!cell.hasWall() && !cell.equals(towardsPacman) && !cell.equals(previousCell)){
                 possibleCell.add(cell);
             }    
         }

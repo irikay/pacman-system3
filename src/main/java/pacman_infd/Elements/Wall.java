@@ -16,7 +16,7 @@ import pacman_infd.GameElement;
  */
 public class Wall extends GameElement {
 
-    private char type;
+    private final char type;
 
     public Wall(Cell cell, char type) {
 

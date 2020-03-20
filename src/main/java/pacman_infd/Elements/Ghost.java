@@ -26,12 +26,12 @@ import pacman_infd.Strategy;
 public class Ghost extends MovingGameElement implements Eatable{
 
     private Strategy strategy;
-    private Strategy initialStrategy;
-    private Color color;
+    private final Strategy initialStrategy;
+    private final Color color;
     private GhostState state;
 
-    private Timer vulnerabilityTimer;
-    private Timer deathTimer;
+    private final Timer vulnerabilityTimer;
+    private final Timer deathTimer;
     private final int VULTIMER_DELAY = 10000;
     private final int DEATH_TIMER_DELAY = 15000;
     
@@ -71,6 +71,7 @@ public class Ghost extends MovingGameElement implements Eatable{
      *
      * @param g
      */
+    @Override
     public void draw(Graphics g) {
         if (state == GhostState.VULNERABLE) {
             g.setColor(Color.BLUE);
@@ -126,6 +127,7 @@ public class Ghost extends MovingGameElement implements Eatable{
      * Move to the next cell. Uses its current strategy to determine which cell
      * to move to.
      */
+    @Override
     protected void move() {
         Cell nextCell = strategy.giveNextCell(cell);
         if (nextCell != null) {

@@ -20,13 +20,13 @@ import pacman_infd.Elements.MovingGameElement;
 public class GameController implements GameEventListener {
 
     private GameWorld gameWorld;
-    private View view;
-    private ScorePanel scorePanel;
+    private final View view;
+    private final ScorePanel scorePanel;
     private GameState gameState;
-    private Timer gameTimer;
-    private StopWatch stopWatch;
-    private LevelManager levelManager;
-    private SoundManager soundManager;
+    private final Timer gameTimer;
+    private final StopWatch stopWatch;
+    private final LevelManager levelManager;
+    private final SoundManager soundManager;
     private final int minGameSpeed = 100;
     private int gameSpeed = 250;
     
@@ -86,7 +86,7 @@ public class GameController implements GameEventListener {
         if(gameState == GameState.RUNNING){
             pauseGame();
             gameWorld.clearGameWorld();
-            gameWorld = null;
+            GameWorld gameWorld = null;
         }
         
         
@@ -117,7 +117,6 @@ public class GameController implements GameEventListener {
         if(gameSpeed > minGameSpeed){
             gameSpeed -= 10;
         }
-        gameWorld = null;
         gameWorld = new GameWorld(this, levelManager.getNextLevel(), soundManager, view, gameSpeed);
     }
 
@@ -170,7 +169,7 @@ public class GameController implements GameEventListener {
                 JOptionPane.ERROR_MESSAGE
         );
         gameWorld.clearGameWorld();
-        gameWorld = null;
+        GameWorld gameWorld = null;
         gameState = GameState.PREGAME;
 
     }

@@ -109,6 +109,8 @@ public class Pacman extends MovingGameElement implements KeyListener {
             case KeyEvent.VK_RIGHT:
                 newDirection = Direction.RIGHT;
                 break;
+            default:
+                break;
         }
         if (cell.getNeighbor(newDirection) != null && !cell.getNeighbor(newDirection).hasWall()) {
             currentDirection = newDirection;

@@ -25,6 +25,7 @@ public class Pellet extends GameElement implements Eatable {
         super(cell, evtl, sMger);
     }
 
+    @Override
     public void draw(Graphics g) {
         g.setColor(Color.WHITE);
         g.fillOval(

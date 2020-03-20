@@ -23,15 +23,12 @@ public class View extends JFrame implements MouseListener {
     private static final int FRAME_WIDTH = 740;
     private static final int FRAME_HEIGHT = 918;
 
-    private BufferedImage image;
+    private final BufferedImage image;
 
-    private GameController gameController;
-
-    private Container contentPane;
+    private final GameController gameController;
 
     private JPanel gamePanel;
     private ScorePanel scorePanel;
-    private JPanel controlPanel;
 
     private JButton startButton;
     private JButton pauseButton;
@@ -48,7 +45,7 @@ public class View extends JFrame implements MouseListener {
         setTitle("Pacman");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
+        Container contentPane;
         contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
         setBackground(Color.BLACK);
@@ -60,6 +57,7 @@ public class View extends JFrame implements MouseListener {
         gamePanel.addMouseListener(this);
         startButton = new JButton("Start");
         startButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startButtontActionPerformed(evt);
             }
@@ -68,13 +66,14 @@ public class View extends JFrame implements MouseListener {
 
         pauseButton = new JButton("Pause");
         pauseButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pauseButtontActionPerformed(evt);
             }
 
         });
 
-        controlPanel = new JPanel();
+        JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new FlowLayout());
         controlPanel.setPreferredSize(new Dimension(FRAME_WIDTH, 35));
         controlPanel.setBackground(Color.BLACK);

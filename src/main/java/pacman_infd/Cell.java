@@ -9,6 +9,7 @@ import pacman_infd.Enums.Direction;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import pacman_infd.Elements.MovingGameElement;
 import pacman_infd.Elements.Wall;
@@ -19,12 +20,12 @@ import pacman_infd.Elements.Wall;
  */
 public class Cell {
 
-    private int xPos;
-    private int yPos;
-    private int size;
+    private final int xPos;
+    private final int yPos;
+    private final int size;
 
-    private Map<Direction, Cell> neighbors;
-    private ArrayList<MovingGameElement> movingElements;
+    private final Map<Direction, Cell> neighbors;
+    private List<MovingGameElement> movingElements;
     private GameElement staticElement;
 
     private Cell pathParent;
@@ -104,7 +105,7 @@ public class Cell {
      *
      * @return a list of all GameElements on this cell.
      */
-    public ArrayList<MovingGameElement> getMovingElements() {
+    public List<MovingGameElement> getMovingElements() {
         return movingElements;
     }
 

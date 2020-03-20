@@ -28,7 +28,8 @@ public enum Direction {
                 d = RIGHT; break;
             case RIGHT:
                 d = UP; break;
-
+            default:
+                break;
         }
         return d;
     }
@@ -44,6 +45,8 @@ public enum Direction {
                 d = UP; break;
             case RIGHT:
                 d = DOWN; break;
+            default:
+                break;
         }
         return d;
     }
@@ -59,6 +62,8 @@ public enum Direction {
                 d = DOWN; break;
             case RIGHT:
                 d = UP; break;
+            default:
+                break;
         }
         return d;
     }

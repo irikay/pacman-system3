@@ -17,7 +17,6 @@ import pacman_infd.Elements.Pacman;
  */
 public class PathFinder {
 
-    private Cell rootCell;
 
     public PathFinder() {
     }
@@ -124,7 +123,7 @@ public class PathFinder {
         while (!queue.isEmpty()) {
             Cell cell = (Cell) queue.poll();
 
-            if (cell == targetCell) {
+            if (cell.equals(targetCell)) {
                 //targetCell found
                 return contructPath(cell);
             }

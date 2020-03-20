@@ -21,7 +21,7 @@ import pacman_infd.SoundManager;
 public abstract class MovingGameElement extends GameElement{
 
     Cell startCell;
-    private Timer timer;
+    private final Timer timer;
     int speed;
 
     MovingGameElement(Cell cell, ElementEventListener gameEventListener, int speed, SoundManager sMger) {

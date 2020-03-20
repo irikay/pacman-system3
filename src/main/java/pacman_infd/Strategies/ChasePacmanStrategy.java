@@ -16,7 +16,7 @@ import pacman_infd.Strategy;
  */
 public class ChasePacmanStrategy implements Strategy {
 
-    private PathFinder pathFinder;
+    private final PathFinder pathFinder;
     
     public ChasePacmanStrategy(){
         pathFinder = new PathFinder();

@@ -14,7 +14,7 @@ import java.net.URI;
  */
 class FileLoader {
     
-    private URI path;
+    private final URI path;
     
     FileLoader(URI path){
         this.path = path;

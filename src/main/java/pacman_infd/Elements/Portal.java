@@ -20,7 +20,7 @@ import pacman_infd.SoundManager;
 public class Portal extends GameElement {
 
     private Portal linkedPortal;
-    private PortalType type;
+    private final PortalType type;
 
     public Portal(Cell cell, PortalType type, SoundManager sMger) {
         super(cell, null, sMger);
