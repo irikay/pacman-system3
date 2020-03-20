@@ -27,7 +27,7 @@ public enum Direction {
             case LEFT:
                 d = RIGHT; break;
             case RIGHT:
-                d = UP; break;
+                d = LEFT; break;
             default:
                 break;
         }

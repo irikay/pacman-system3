@@ -12,13 +12,15 @@ class StopWatch {
     private long elapsedTime;
     
     private boolean isRunning;
+
+    private final int INITIAL_ELAPSED_TIME = 0;
     
     StopWatch(){
         reset();
     }
     
     void reset(){
-        elapsedTime = 0;
+        elapsedTime = INITIAL_ELAPSED_TIME;
         isRunning = false;
     }
     

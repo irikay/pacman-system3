@@ -22,6 +22,10 @@ public class ScorePanel extends JPanel {
     
     private static final int PANEL_WIDTH = 730;
     private static final int PANEL_HEIGHT = 50;
+
+    private static final int INITIAL_SCORE = 0;
+    private static final int INITIAL_NUMBER_LIVES = 3;
+    private static final String INITIAL_TIME = "00:00";
     
     ScorePanel()
     {
@@ -33,9 +37,9 @@ public class ScorePanel extends JPanel {
      */
     void resetStats()
     {
-        score = 0;
-        lives = 3;
-        time = "00:00";
+        score = INITIAL_SCORE;
+        lives = INITIAL_NUMBER_LIVES;
+        time = INITIAL_TIME;
     }
     
     /**

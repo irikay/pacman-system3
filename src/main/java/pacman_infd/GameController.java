@@ -27,10 +27,12 @@ public class GameController implements GameEventListener {
     private final StopWatch stopWatch;
     private final LevelManager levelManager;
     private final SoundManager soundManager;
-    private final int minGameSpeed = 100;
-    private int gameSpeed = 250;
+    private int gameSpeed;
     
     private static final int REFRESH_RATE = 10;
+    private final int INITIAL_GAME_SPEED = 250;
+    private final int MIN_GAME_SPEED = 100;
+    private final int NEXT_LEVEL_SPEED_CHANGE = -10;
 
     GameController(View view, ScorePanel scorePanel) {
 
@@ -88,8 +90,8 @@ public class GameController implements GameEventListener {
             gameWorld.clearGameWorld();
             GameWorld gameWorld = null;
         }
-        
-        
+
+        gameSpeed = INITIAL_GAME_SPEED;
         gameWorld = new GameWorld(this, levelManager.getFirstLevel(), soundManager, view, gameSpeed);
         scorePanel.resetStats();
         gameState = GameState.RUNNING;
@@ -114,8 +116,8 @@ public class GameController implements GameEventListener {
                 JOptionPane.ERROR_MESSAGE
         );
 
-        if(gameSpeed > minGameSpeed){
-            gameSpeed -= 10;
+        if(gameSpeed > MIN_GAME_SPEED){
+            gameSpeed += NEXT_LEVEL_SPEED_CHANGE;
         }
         gameWorld = new GameWorld(this, levelManager.getNextLevel(), soundManager, view, gameSpeed);
     }

@@ -24,6 +24,15 @@ public class GameWorld {
 
     private static final int CELL_SIZE = 26; //pixels
 
+    private static final char PELLET = '0';
+    private static final char SUPER_PELLET = '2';
+    private static final char BLINKY = 'a';
+    private static final char PINKY = 'b';
+    private static final char INKY = 'c';
+    private static final char CLYDE = 'd';
+    private static final char NOTHING = '-';
+    private static final char PACMAN = 'P';
+
     private int width;
     private int height;
 
@@ -67,8 +76,6 @@ public class GameWorld {
     /**
      * Create a grid of cells.
      *
-     * @param width
-     * @param height
      */
     private void createCells() {
 
@@ -113,34 +120,52 @@ public class GameWorld {
     /**
      * Places walls on the cellMap according to wallMap
      *
-     * @param wMap array of integers representing the walls (1=wall, 0=no wall)
-     * @param cMap cell array of level.
+     * @param elementMap array of integers representing the walls (1=wall, 0=no wall)
+     * @param cellMap cell array of level.
      */
     private void placeElements(char[][] elementMap, Cell[][] cellMap) {
 
         for (int x = 0; x < height; x++) {
             for (int y = 0; y < width; y++) {
-                if (elementMap[x][y] == '0') {
-                    Pellet p = new Pellet(cellMap[x][y], eventHandler, soundManager);
-                } else if (elementMap[x][y] == '2') {
-                    SuperPellet s = new SuperPellet(cellMap[x][y], eventHandler, soundManager);
-                } else if (elementMap[x][y] == 'a') {
-                    Ghost blinky = new Ghost(cellMap[x][y], eventHandler, gameSpeed, new ChasePacmanStrategy(), Color.RED, soundManager);
-                } else if (elementMap[x][y] == 'b') {
-                    Ghost pinky = new Ghost(cellMap[x][y], eventHandler, gameSpeed, new ChasePacmanStrategy(), Color.PINK, soundManager);
-                } else if (elementMap[x][y] == 'c') {
-                    Ghost inky = new Ghost(cellMap[x][y], eventHandler, gameSpeed, new MoveRandomStrategy(), Color.CYAN, soundManager);
-                } else if (elementMap[x][y] == 'd') {
-                    Ghost clyde = new Ghost(cellMap[x][y], eventHandler, gameSpeed, new MoveRandomStrategy(), Color.ORANGE, soundManager);
-                } else if (elementMap[x][y] == '-') {
-                    // niks
-                } else if (elementMap[x][y] == 'P') {
-                    Pacman pacman = new Pacman(cellMap[x][y], eventHandler, gameSpeed, soundManager);
-                    view.addKeyListener(pacman);
-                } else {
-                    Wall w = new Wall(cellMap[x][y], elementMap[x][y]);
-                }
+                placeElement(elementMap[x][y], cellMap[x][y]);
             }
+        }
+    }
+
+    /**
+     * Place a wall on the cellMap, and create another object if not a wall
+     * @param elementType the type of element
+     * @param cell the cell
+     */
+    private void placeElement(char elementType, Cell cell) {
+        switch (elementType) {
+            case PELLET:
+                Pellet p = new Pellet(cell, eventHandler, soundManager);
+                break;
+            case SUPER_PELLET:
+                SuperPellet s = new SuperPellet(cell, eventHandler, soundManager);
+                break;
+            case BLINKY:
+                Ghost blinky = new Ghost(cell, eventHandler, gameSpeed, new ChasePacmanStrategy(), Color.RED, soundManager);
+                break;
+            case PINKY:
+                Ghost pinky = new Ghost(cell, eventHandler, gameSpeed, new ChasePacmanStrategy(), Color.PINK, soundManager);
+                break;
+            case INKY:
+                Ghost inky = new Ghost(cell, eventHandler, gameSpeed, new MoveRandomStrategy(), Color.CYAN, soundManager);
+                break;
+            case CLYDE:
+                Ghost clyde = new Ghost(cell, eventHandler, gameSpeed, new MoveRandomStrategy(), Color.ORANGE, soundManager);
+                break;
+            case PACMAN:
+                Pacman pacman = new Pacman(cell, eventHandler, gameSpeed, soundManager);
+                view.addKeyListener(pacman);
+                break;
+            case NOTHING:
+                break;
+            default:
+                Wall w = new Wall(cell, elementType);
+                break;
         }
     }
 
@@ -202,35 +227,47 @@ public class GameWorld {
         int cellX = x / CELL_SIZE;
         int cellY = y / CELL_SIZE;
         findNeighbors();
-        if (cellY < cellMap.length && !cellMap[cellY][cellX].hasWall() && cellMap[cellY][cellX].getStaticElement() == null) {
+        if (isEmptyGameCell(cellMap[cellY][cellX])) {
             if (mouseButton == 1) {
-                if (getPortalBlue() != null) {
-                    getPortalBlue().remove();
-                }
-                setPortalBlue(new Portal(cellMap[cellY][cellX], PortalType.BLUE, soundManager));
-                soundManager.playSound("portal");
-                if (getPortalOrange() != null) {
-                    getPortalBlue().setLinkedPortal(getPortalOrange());
-                    getPortalOrange().setLinkedPortal(getPortalBlue());
-                    getPortalBlue().warpNeighbors();
-                    getPortalOrange().warpNeighbors();
-                }
+                spawnPortalInCell(PortalType.BLUE, cellX, cellY);
             } else if (mouseButton == 3) {
-                if (getPortalOrange() != null) {
-                    getPortalOrange().remove();
-                }
-                setPortalOrange(new Portal(cellMap[cellY][cellX], PortalType.ORANGE, soundManager));
-                soundManager.playSound("portal");
-                if (getPortalBlue() != null) {
-                    getPortalOrange().setLinkedPortal(getPortalBlue());
-                    getPortalBlue().setLinkedPortal(getPortalOrange());
-                    getPortalOrange().warpNeighbors();
-                    getPortalBlue().warpNeighbors();
-                }
+                spawnPortalInCell(PortalType.ORANGE, cellX, cellY);
             }
         }
     }
-    
+
+    private void spawnPortalInCell(PortalType portalType, int cellX, int cellY) {
+        if (portalType == PortalType.BLUE) {
+            if (getPortalBlue() != null) {
+                getPortalBlue().remove();
+            }
+            setPortalBlue(new Portal(cellMap[cellY][cellX], PortalType.BLUE, soundManager));
+            soundManager.playSound("portal");
+            if (getPortalOrange() != null) {
+                getPortalBlue().setLinkedPortal(getPortalOrange());
+                getPortalOrange().setLinkedPortal(getPortalBlue());
+                getPortalBlue().warpNeighbors();
+                getPortalOrange().warpNeighbors();
+            }
+        } else if (portalType == PortalType.ORANGE) {
+            if (getPortalOrange() != null) {
+                getPortalOrange().remove();
+            }
+            setPortalOrange(new Portal(cellMap[cellY][cellX], PortalType.ORANGE, soundManager));
+            soundManager.playSound("portal");
+            if (getPortalBlue() != null) {
+                getPortalOrange().setLinkedPortal(getPortalBlue());
+                getPortalBlue().setLinkedPortal(getPortalOrange());
+                getPortalOrange().warpNeighbors();
+                getPortalBlue().warpNeighbors();
+            }
+        }
+    }
+
+    private boolean isEmptyGameCell(Cell cell) {
+        return cell.getYPos() < cellMap.length && !cell.hasWall() && cell.getStaticElement() == null;
+    }
+
     void clearGameWorld(){
         for(Cell cell: cells){
             cell.clearCell();

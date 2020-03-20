@@ -36,19 +36,24 @@ public class Portal extends GameElement {
     }
 
     public void warpNeighbors() {
-        if (cell.getNeighbor(Direction.UP) != null && !cell.getNeighbor(Direction.UP).hasWall()) {
+        if (isNeighborCellNotAWall(Direction.UP)) {
             cell.getNeighbor(Direction.UP).setNeighbor(Direction.DOWN, linkedPortal.getCell());
         }
-        if (cell.getNeighbor(Direction.DOWN) != null && !cell.getNeighbor(Direction.DOWN).hasWall()) {
+        if (isNeighborCellNotAWall(Direction.DOWN)) {
             cell.getNeighbor(Direction.DOWN).setNeighbor(Direction.UP, linkedPortal.getCell());
         }
-        if (cell.getNeighbor(Direction.LEFT) != null && !cell.getNeighbor(Direction.LEFT).hasWall()) {
+        if (isNeighborCellNotAWall(Direction.LEFT)) {
             cell.getNeighbor(Direction.LEFT).setNeighbor(Direction.RIGHT, linkedPortal.getCell());
         }
-        if (cell.getNeighbor(Direction.RIGHT) != null && !cell.getNeighbor(Direction.RIGHT).hasWall()) {
+        if (isNeighborCellNotAWall(Direction.RIGHT)) {
             cell.getNeighbor(Direction.RIGHT).setNeighbor(Direction.LEFT, linkedPortal.getCell());
         }
 
+    }
+
+    //todo mettre dans cell
+    private boolean isNeighborCellNotAWall(Direction direction) {
+        return cell.getNeighbor(direction) != null && !cell.getNeighbor(direction).hasWall();
     }
 
     public void setLinkedPortal(Portal portal) {

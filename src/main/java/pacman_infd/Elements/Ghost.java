@@ -73,9 +73,9 @@ public class Ghost extends MovingGameElement implements Eatable{
      */
     @Override
     public void draw(Graphics g) {
-        if (state == GhostState.VULNERABLE) {
+        if (state.equals(GhostState.VULNERABLE)) {
             g.setColor(Color.BLUE);
-        } else if (state == GhostState.DEAD) {
+        } else if (state.equals(GhostState.DEAD)) {
             g.setColor(Color.BLACK);
         } else {
             g.setColor(color);
@@ -144,9 +144,9 @@ public class Ghost extends MovingGameElement implements Eatable{
      */
     public void flee() {
 
-        if (state == GhostState.VULNERABLE) {
+        if (state.equals(GhostState.VULNERABLE)) {
             vulnerabilityTimer.restart();
-        } else if (state == GhostState.NORMAL){
+        } else if (state.equals(GhostState.NORMAL)){
             this.strategy = new FleeStrategy();
             state = GhostState.VULNERABLE;
             setSpeed((int) (speed * 1.50));
@@ -196,10 +196,10 @@ public class Ghost extends MovingGameElement implements Eatable{
     }
 
     private void vulnerabilityTimerActionPerformed(ActionEvent evt) {
-        if(state == GhostState.VULNERABLE){
+        if(state.equals(GhostState.VULNERABLE)){
             backToNormal();
         }
-        if(state == GhostState.DEAD){
+        if(state.equals(GhostState.DEAD)){
             deathTimer.restart();
         }
         vulnerabilityTimer.stop();
@@ -212,12 +212,12 @@ public class Ghost extends MovingGameElement implements Eatable{
     
     @Override
     public void eatMe() {
-        if(state == GhostState.VULNERABLE){
+        if(state.equals(GhostState.VULNERABLE)){
             soundManager.playSound("ghost");
             dead();
             
         }
-        else if(state == GhostState.NORMAL){
+        else if(state.equals(GhostState.NORMAL)){
             soundManager.playSound("death");
             elementEventListener.killPacman();
         }

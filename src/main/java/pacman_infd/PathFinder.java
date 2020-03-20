@@ -92,13 +92,7 @@ public class PathFinder {
             //if pacman not found
             visitedCells.add(cell);
 
-            for (Cell cellChild : (Collection<Cell>) cell.getNeighbors().values()) {
-                if (!cellChild.hasWall() && !visitedCells.contains(cellChild) && !queue.contains(cellChild)) {
-                    cellChild.setPathParent(cell);
-                    queue.add(cellChild);
-                }
-
-            }
+            addCellChildInQueue(visitedCells, queue, cell);
         }
 
         //no path found
@@ -131,17 +125,20 @@ public class PathFinder {
             //targetCell not found
             visitedCells.add(cell);
 
-            for (Cell cellChild : (Collection<Cell>) cell.getNeighbors().values()) {
-                if (!cellChild.hasWall() && !visitedCells.contains(cellChild) && !queue.contains(cellChild)) {
-                    cellChild.setPathParent(cell);
-                    queue.add(cellChild);
-                }
-
-            }
+            addCellChildInQueue(visitedCells, queue, cell);
         }
 
         //no path found
         return null;
+    }
+
+    private void addCellChildInQueue(LinkedList visitedCells, Queue queue, Cell cell) {
+        for (Cell cellChild : (Collection<Cell>) cell.getNeighbors().values()) {
+            if (!cellChild.hasWall() && !visitedCells.contains(cellChild) && !queue.contains(cellChild)) {
+                cellChild.setPathParent(cell);
+                queue.add(cellChild);
+            }
+        }
     }
 
 }

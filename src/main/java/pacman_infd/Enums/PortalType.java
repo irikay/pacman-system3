@@ -11,6 +11,5 @@ package pacman_infd.Enums;
  * @author ivanweller
  */
  public enum PortalType {
-
         BLUE, ORANGE
     }
