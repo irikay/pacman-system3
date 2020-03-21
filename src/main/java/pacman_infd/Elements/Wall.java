@@ -7,8 +7,7 @@ package pacman_infd.Elements;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import pacman_infd.Cell;
-import pacman_infd.GameElement;
+import pacman_infd.Game.Cell;
 
 /**
  *

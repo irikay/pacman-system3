@@ -10,10 +10,10 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import pacman_infd.Cell;
+import pacman_infd.Game.Cell;
 import pacman_infd.Enums.Direction;
-import pacman_infd.ElementEventListener;
-import pacman_infd.SoundManager;
+import pacman_infd.Game.ElementEventListener;
+import pacman_infd.Game.SoundManager;
 
 /**
  *
@@ -48,6 +48,7 @@ public class Pacman extends MovingGameElement implements KeyListener {
         elementEventListener.movingElementActionPerformed(this);
     }
 
+    //todo draw en fonction de sa position
     /**
      * Draw Pacman.
      *

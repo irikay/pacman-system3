@@ -8,8 +8,7 @@ package pacman_infd.Strategies;
 
 import java.util.ArrayList;
 import java.util.Random;
-import pacman_infd.Cell;
-import pacman_infd.Strategy;
+import pacman_infd.Game.Cell;
 
 /**
  *

@@ -15,6 +15,11 @@ import org.junit.Test;
 import pacman_infd.Elements.Ghost;
 import pacman_infd.Elements.Pacman;
 import pacman_infd.Enums.Direction;
+import pacman_infd.Game.Cell;
+import pacman_infd.Game.GameController;
+import pacman_infd.Game.GameWorld;
+import pacman_infd.Game.View;
+import pacman_infd.Strategies.PathFinder;
 
 /**
  *

@@ -9,10 +9,9 @@ package pacman_infd.Elements;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
-import pacman_infd.Cell;
-import pacman_infd.GameElement;
-import pacman_infd.ElementEventListener;
-import pacman_infd.SoundManager;
+import pacman_infd.Game.Cell;
+import pacman_infd.Game.ElementEventListener;
+import pacman_infd.Game.SoundManager;
 
 /**
  *

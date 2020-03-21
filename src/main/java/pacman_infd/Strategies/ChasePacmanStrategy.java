@@ -6,9 +6,7 @@
 
 package pacman_infd.Strategies;
 
-import pacman_infd.Cell;
-import pacman_infd.PathFinder;
-import pacman_infd.Strategy;
+import pacman_infd.Game.Cell;
 
 /**
  *
