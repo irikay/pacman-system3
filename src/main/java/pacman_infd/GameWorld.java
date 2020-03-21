@@ -45,15 +45,12 @@ public class GameWorld {
     private List<Cell> cells;
     private Cell[][] cellMap;
 
-    private char[][] elementMap;
-
     private final int gameSpeed;
     private int numberOfPelletsAtStart;
 
     private Portal portalBlue;
     private Portal portalOrange;
 
-    //todo soundmanager appartient pas a gameController?
     GameWorld(GameController gameController, char[][] levelMap, SoundManager sMger, View view, int speed) {
 
         soundManager = sMger;
@@ -64,13 +61,12 @@ public class GameWorld {
 
         if (levelMap != null) {
 
-            this.elementMap = levelMap;
-            width = elementMap[0].length;
-            height = elementMap.length;
+            width = levelMap[0].length;
+            height = levelMap.length;
             createCells();
             findNeighbors();
 
-            placeElements(elementMap, cellMap);
+            placeElements(levelMap, cellMap);
 
             numberOfPelletsAtStart = countPellets();
         }
@@ -94,6 +90,13 @@ public class GameWorld {
         }
     }
 
+    private Cell getCell(int cellX, int cellY) {
+        if (cellY < width && cellX < height)
+            return cellMap[cellX][cellY];
+        else
+            return null;
+    }
+
     /**
      * Finds all neighbors for each cell and adds them to the neighbors Map of
      * each cell.
@@ -103,16 +106,16 @@ public class GameWorld {
         for (int x = 0; x < height; x++) {
             for (int y = 0; y < width; y++) {
                 if (x - 1 >= 0) {
-                    cellMap[x][y].setNeighbor(Direction.UP, cellMap[x - 1][y]);
+                    getCell(x , y).setNeighbor(Direction.UP, getCell(x - 1, y));
                 }
                 if (x + 1 < height) {
-                    cellMap[x][y].setNeighbor(Direction.DOWN, cellMap[x + 1][y]);
+                    getCell(x , y).setNeighbor(Direction.DOWN, getCell(x + 1, y));
                 }
                 if (y - 1 >= 0) {
-                    cellMap[x][y].setNeighbor(Direction.LEFT, cellMap[x][y - 1]);
+                    getCell(x , y).setNeighbor(Direction.LEFT, getCell(x, y - 1));
                 }
                 if (y + 1 < width) {
-                    cellMap[x][y].setNeighbor(Direction.RIGHT, cellMap[x][y + 1]);
+                    getCell(x , y).setNeighbor(Direction.RIGHT, getCell(x, y + 1));
                 }
             }
         }
@@ -129,7 +132,7 @@ public class GameWorld {
 
         for (int x = 0; x < height; x++) {
             for (int y = 0; y < width; y++) {
-                placeElement(elementMap[x][y], cellMap[x][y]);
+                placeElement(elementMap[x][y], getCell(x, y));
             }
         }
     }
@@ -228,7 +231,7 @@ public class GameWorld {
         int cellX = x / CELL_SIZE;
         int cellY = y / CELL_SIZE;
         findNeighbors();
-        if (isEmptyGameCell(cellMap[cellY][cellX])) {
+        if (isEmptyGameCell(getCell(cellY, cellX))) {
             if (mouseButton == 1) {
                 spawnPortalInCell(PortalType.BLUE, cellX, cellY);
             } else if (mouseButton == 3) {
@@ -249,7 +252,7 @@ public class GameWorld {
         if (getPortal(portalType) != null) {
             getPortal(portalType).remove();
         }
-        setPortal(new Portal(cellMap[cellY][cellX], portalType, soundManager));
+        setPortal(new Portal(getCell(cellX, cellY), portalType, soundManager));
         soundManager.playSound("portal");
         if (getPortal(otherPortalType) != null) {
             getPortal(portalType).setLinkedPortal(getPortal(otherPortalType));
