@@ -18,7 +18,7 @@ import pacman_infd.Game.SoundManager;
  */
 public class SuperPellet extends GameElement implements Eatable {
 
-    private static final int VALUE = 100;
+    private static final int VALUE = 50;
     
     public SuperPellet(Cell cell, ElementEventListener evtl, SoundManager sMger) {
         super(cell, evtl, sMger);
@@ -41,7 +41,7 @@ public class SuperPellet extends GameElement implements Eatable {
         if(cell.getStaticElement() == this){
             cell.setStaticElement(null);
         }  
-        elementEventListener.makeGhostsVulnerable();
+        elementEventListener.enterSuperMode();
     }
 
     @Override

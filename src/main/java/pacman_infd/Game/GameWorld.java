@@ -217,7 +217,7 @@ public class GameWorld {
      * @return True if the game is won
      */
     Boolean gameIsWon() {
-        return countPellets() == numberOfPelletsAtStart - 5;
+        return countPellets() == 0;
     }
 
     /**

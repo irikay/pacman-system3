@@ -29,10 +29,9 @@ public class Ghost extends MovingGameElement implements Eatable{
     private final Color color;
     private GhostState state;
 
-    private final Timer vulnerabilityTimer;
+    private Timer vulnerabilityTimer;
     private final Timer deathTimer;
-    private final int VULTIMER_DELAY = 10000;
-    private final int DEATH_TIMER_DELAY = 15000;
+    private final int DEATH_TIMER_DELAY = 5000;
     
     private static final int VALUE = 400;
 
@@ -45,14 +44,6 @@ public class Ghost extends MovingGameElement implements Eatable{
         initialStrategy = strategy;
         state = GhostState.NORMAL;
 
-        ActionListener vulnerabilityTimerAction = new java.awt.event.ActionListener() {
-
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                vulnerabilityTimerActionPerformed(evt);
-            }
-        };
-
         ActionListener deathTimerAction = new java.awt.event.ActionListener() {
 
             @Override
@@ -61,8 +52,8 @@ public class Ghost extends MovingGameElement implements Eatable{
             }
         };
 
-        vulnerabilityTimer = new Timer(VULTIMER_DELAY, vulnerabilityTimerAction);
         deathTimer = new Timer(DEATH_TIMER_DELAY, deathTimerAction);
+        vulnerabilityTimer = new Timer(0, vulnerabilityTimerAction);
     }
 
     /**
@@ -137,18 +128,28 @@ public class Ghost extends MovingGameElement implements Eatable{
 
     }
 
+    ActionListener vulnerabilityTimerAction = new java.awt.event.ActionListener() {
+
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            vulnerabilityTimerActionPerformed(evt);
+        }
+    };
+
     /**
      * Change current strategy to FleeStrategy and lowers the speed of this
-     * Ghost by 50% This is called when Pacman eats a superPellet.
+     * Ghost by 50% This is called when Pacman eats a superPellet
      */
-    public void flee() {
-
+    public void flee(int time) {
         if (state.equals(GhostState.VULNERABLE)) {
+            vulnerabilityTimer.stop();
+            vulnerabilityTimer = new Timer(time * 1000, vulnerabilityTimerAction);
             vulnerabilityTimer.restart();
         } else if (state.equals(GhostState.NORMAL)){
             this.strategy = new FleeStrategy();
             state = GhostState.VULNERABLE;
             setSpeed((int) (speed * 1.50));
+            vulnerabilityTimer = new Timer(time * 1000, vulnerabilityTimerAction);
             vulnerabilityTimer.start();
         }
 
@@ -166,7 +167,8 @@ public class Ghost extends MovingGameElement implements Eatable{
     }
 
     private void dead() {
-        setSpeed(speed);
+        // Make them fast so they can reach the middle of the maze in less than 5 seconds
+        setSpeed(speed / 5);
         strategy = new ReturnHomeStrategy(startCell);
         state = GhostState.DEAD;
         deathTimer.start();
@@ -212,6 +214,7 @@ public class Ghost extends MovingGameElement implements Eatable{
     @Override
     public void eatMe() {
         if(state.equals(GhostState.VULNERABLE)){
+            elementEventListener.eatAGhost(this);
             soundManager.playSound("ghost");
             dead();
             

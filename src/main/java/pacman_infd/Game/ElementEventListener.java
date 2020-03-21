@@ -9,6 +9,7 @@ package pacman_infd.Game;
 import java.util.EventListener;
 
 import pacman_infd.Elements.Eatable;
+import pacman_infd.Elements.Ghost;
 import pacman_infd.Elements.MovingGameElement;
 
 /**
@@ -18,8 +19,9 @@ import pacman_infd.Elements.MovingGameElement;
 public interface ElementEventListener extends EventListener{
     
     public void movingElementActionPerformed(MovingGameElement e);
+    public void eatAGhost(Ghost ghost);
     public void eatableElementEaten(Eatable e);
-    public void makeGhostsVulnerable();
+    public void enterSuperMode();
     public void killPacman();
 
 }
