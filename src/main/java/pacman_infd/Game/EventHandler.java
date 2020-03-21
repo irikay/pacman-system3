@@ -96,6 +96,9 @@ public class EventHandler implements ElementEventListener {
     public void eatableElementEaten(Eatable e) {
         gameEventListener.increasePoints(e.getValue());
         gameWorld.placeCherryOnRandomEmptyCell();
+        if (gameWorld.gameIsWon()) {
+            gameEventListener.levelIsWon();
+        }
     }
 
     @Override

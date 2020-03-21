@@ -213,6 +213,14 @@ public class GameWorld {
     }
 
     /**
+     * Game is won is there is no pellet left
+     * @return True if the game is won
+     */
+    Boolean gameIsWon() {
+        return countPellets() == numberOfPelletsAtStart - 5;
+    }
+
+    /**
      * Places a cherry on a random cell that has no static element.
      */
     void placeCherryOnRandomEmptyCell() {

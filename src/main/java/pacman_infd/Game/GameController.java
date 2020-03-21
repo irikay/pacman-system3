@@ -89,38 +89,50 @@ public class GameController implements GameEventListener {
         if(gameState == GameState.RUNNING){
             pauseGame();
             gameWorld.clearGameWorld();
-            GameWorld gameWorld = null;
         }
 
-        gameSpeed = INITIAL_GAME_SPEED;
-        gameWorld = new GameWorld(this, levelManager.getFirstLevel(), soundManager, view, gameSpeed);
-        scorePanel.resetStats();
-        gameState = GameState.RUNNING;
-        drawGame();
-        gameTimer.start();
         stopWatch.reset();
         stopWatch.start();
+        gameSpeed = INITIAL_GAME_SPEED;
+        char[][] level = levelManager.getFirstLevel();
+        setupLevel(level);
+        scorePanel.resetStats();
+    }
+
+    public void levelIsWon() {
+        soundManager.playSound("win");
+        pauseGame();
+        char[][] nextLevel = levelManager.getNextLevel();
+        if (nextLevel != null) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Well done!\nGet ready for the next level!",
+                    "Level Complete",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            if(gameSpeed > MIN_GAME_SPEED) {
+                gameSpeed += NEXT_LEVEL_SPEED_CHANGE;
+            }
+            setupLevel(nextLevel);
+        } else {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Well done!\nYou won all levels!",
+                    "Game Complete!!!",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
 
     }
 
     /**
-     * Go to the next level.
+     * Setup a level
      */
-    public void nextLevel() {
-
-        soundManager.playSound("win");
-        pauseGame();
-        JOptionPane.showMessageDialog(
-                null,
-                "Well done!\nGet ready for the next level!",
-                "Level Complete",
-                JOptionPane.ERROR_MESSAGE
-        );
-
-        if(gameSpeed > MIN_GAME_SPEED){
-            gameSpeed += NEXT_LEVEL_SPEED_CHANGE;
-        }
-        gameWorld = new GameWorld(this, levelManager.getNextLevel(), soundManager, view, gameSpeed);
+    public void setupLevel(char[][] level) {
+        gameWorld = new GameWorld(this, level, soundManager, view, gameSpeed);
+        gameState = GameState.RUNNING;
+        drawGame();
+        gameTimer.start();
     }
 
     /**
