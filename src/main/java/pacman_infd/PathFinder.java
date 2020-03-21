@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Queue;
+
+import pacman_infd.Elements.MovingGameElement;
 import pacman_infd.Elements.Pacman;
 
 /**
@@ -16,7 +18,6 @@ import pacman_infd.Elements.Pacman;
  * @author Marinus
  */
 public class PathFinder {
-
 
     public PathFinder() {
     }
@@ -29,16 +30,16 @@ public class PathFinder {
      * @return first cell in the path towards packman.
      */
     public Cell nextCellInPathToPacman(Cell rootCell) {
-        List<Cell> path = findPathToPacman(rootCell);
-        if (path != null && !path.isEmpty()) {
-            return path.get(0);
-        } else {
-            return rootCell;
-        }
+        List<Cell> path = findPath(rootCell, Pacman.class);
+        return nextCell(rootCell, path);
     }
 
     public Cell nextCellInPath(Cell rootCell, Cell targetCell) {
-        List<Cell> path = findPathToCell(rootCell, targetCell);
+        List<Cell> path = findPath(rootCell, targetCell);
+        return nextCell(rootCell, path);
+    }
+
+    private Cell nextCell(Cell rootCell, List<Cell> path) {
         if (path != null && !path.isEmpty()) {
             return path.get(0);
         } else {
@@ -53,7 +54,7 @@ public class PathFinder {
      * @param cell start cell from which to walk back.
      * @return list of cells making up the path.
      */
-    private List<Cell> contructPath(Cell cell) {
+    private List<Cell> constructPath(Cell cell) {
 
         LinkedList path = new LinkedList();
         while (cell.getPathParent() != null) {
@@ -66,12 +67,15 @@ public class PathFinder {
 
     /**
      * Uses a Breath-First search algorithm to determine the shortest path from
-     * the start cell to the cell containing Pacman.
+     * the start cell to a cell, if the target is a Class, it needs to be a Class of an instance of a GameElement
+     * for exemple, Pacman, then it will search the nearest cell with Pacman.
+     * If the target is a Cell, it will search the path to that cell.
      *
-     * @param startCell
-     * @return
+     * @param startCell the starting cell
+     * @param target the target, a Cell or an Object Class
+     * @return the path
      */
-    List<Cell> findPathToPacman(Cell startCell) {
+    List<Cell> findPath(Cell startCell, Object target) {
 
         LinkedList visitedCells = new LinkedList();
 
@@ -82,47 +86,22 @@ public class PathFinder {
         while (!queue.isEmpty()) {
             Cell cell = (Cell) queue.poll();
 
-            for (GameElement e : cell.getMovingElements()) {
-                if (e instanceof Pacman) {
-                    //pacman found
-                    return contructPath(cell);
+            if (target instanceof Class) {
+                for (GameElement e : cell.getMovingElements()) {
+                    if (e.getClass() == target) {
+                        //pacman found
+                        return constructPath(cell);
+                    }
                 }
             }
 
-            //if pacman not found
-            visitedCells.add(cell);
-
-            addCellChildInQueue(visitedCells, queue, cell);
-        }
-
-        //no path found
-        return null;
-    }
-
-    /**
-     * Uses a Breath-First search algorithm to determine the shortest path from
-     * the start cell to the target cell.
-     *
-     * @param startCell
-     * @return
-     */
-    private List<Cell> findPathToCell(Cell startCell, Cell targetCell) {
-
-        LinkedList visitedCells = new LinkedList();
-
-        Queue queue = new LinkedList();
-        queue.offer(startCell);
-        startCell.setPathParent(null);
-
-        while (!queue.isEmpty()) {
-            Cell cell = (Cell) queue.poll();
-
-            if (cell.equals(targetCell)) {
-                //targetCell found
-                return contructPath(cell);
+            if (target instanceof  Cell) {
+                if (cell.equals(target)) {
+                    //targetCell found
+                    return constructPath(cell);
+                }
             }
 
-            //targetCell not found
             visitedCells.add(cell);
 
             addCellChildInQueue(visitedCells, queue, cell);

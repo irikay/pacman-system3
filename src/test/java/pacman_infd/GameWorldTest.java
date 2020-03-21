@@ -9,7 +9,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.testng.annotations.Test;
+import org.junit.Test;
 import pacman_infd.Elements.Portal;
 import pacman_infd.Enums.Direction;
 import pacman_infd.Enums.PortalType;
@@ -23,6 +23,7 @@ public class GameWorldTest {
     GameController gameController;
     GameWorld gameWorld;
 
+    //todo rajouter test
     public GameWorldTest() {
     }
 
@@ -43,7 +44,7 @@ public class GameWorldTest {
         };
 
         gameController = new GameController(null, null);
-        gameWorld = new GameWorld(new GameController(null, null), levelMap, gameController.getSoundManager(), null, 0);
+        gameWorld = new GameWorld(gameController, levelMap, gameController.getSoundManager(), null, 0);
 
     }
 

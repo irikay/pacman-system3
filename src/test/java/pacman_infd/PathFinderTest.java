@@ -68,7 +68,7 @@ public class PathFinderTest {
         Pacman pacman = new Pacman(gameWorld.getCellMap()[2][0], null, 100, null);
         
         //Find the path to Pacman.
-        List path = pathFinder.findPathToPacman(gameWorld.getCellMap()[0][0]);
+        List path = pathFinder.findPath(gameWorld.getCellMap()[0][0], Pacman.class);
         
         //assert that the list is not empty.
         assert(path != null);
@@ -109,7 +109,7 @@ public class PathFinderTest {
         //create a new GameWorld.        
         gameWorld = new GameWorld(gameController, levelMap, gameController.getSoundManager(), new View(), 0);
         //assert that there's no valid path to Pacman.
-        assert (pathFinder.findPathToPacman(gameWorld.getCellMap()[0][0]) == null);
+        assert (pathFinder.findPath(gameWorld.getCellMap()[0][0], Pacman.class) == null);
 
         
 

@@ -15,7 +15,6 @@ C:\Users\loldo\Documents\Informatique\MA2\Software Evolution\Projet\Pacman\src\m
 C:\Users\loldo\Documents\Informatique\MA2\Software Evolution\Projet\Pacman\src\main\java\pacman_infd\Elements\Pacman.java
 C:\Users\loldo\Documents\Informatique\MA2\Software Evolution\Projet\Pacman\src\main\java\pacman_infd\ElementEventListener.java
 C:\Users\loldo\Documents\Informatique\MA2\Software Evolution\Projet\Pacman\src\main\java\pacman_infd\Enums\Direction.java
-C:\Users\loldo\Documents\Informatique\MA2\Software Evolution\Projet\Pacman\src\main\java\pacman_infd\Strategies\ReturnHomeSrategy.java
 C:\Users\loldo\Documents\Informatique\MA2\Software Evolution\Projet\Pacman\src\main\java\pacman_infd\Enums\GameState.java
 C:\Users\loldo\Documents\Informatique\MA2\Software Evolution\Projet\Pacman\src\main\java\pacman_infd\SoundManager.java
 C:\Users\loldo\Documents\Informatique\MA2\Software Evolution\Projet\Pacman\src\main\java\pacman_infd\Enums\GhostState.java
@@ -30,4 +29,5 @@ C:\Users\loldo\Documents\Informatique\MA2\Software Evolution\Projet\Pacman\src\m
 C:\Users\loldo\Documents\Informatique\MA2\Software Evolution\Projet\Pacman\src\main\java\pacman_infd\Eatable.java
 C:\Users\loldo\Documents\Informatique\MA2\Software Evolution\Projet\Pacman\src\main\java\pacman_infd\GameElement.java
 C:\Users\loldo\Documents\Informatique\MA2\Software Evolution\Projet\Pacman\src\main\java\pacman_infd\Elements\Pellet.java
+C:\Users\loldo\Documents\Informatique\MA2\Software Evolution\Projet\Pacman\src\main\java\pacman_infd\Strategies\ReturnHomeStrategy.java
 C:\Users\loldo\Documents\Informatique\MA2\Software Evolution\Projet\Pacman\src\main\java\pacman_infd\Elements\Portal.java

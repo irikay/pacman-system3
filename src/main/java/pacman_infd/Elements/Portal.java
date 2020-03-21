@@ -25,7 +25,11 @@ public class Portal extends GameElement {
     public Portal(Cell cell, PortalType type, SoundManager sMger) {
         super(cell, null, sMger);
         this.type = type;
+    }
 
+
+    public PortalType getType() {
+        return type;
     }
 
     public void remove() {
@@ -36,24 +40,19 @@ public class Portal extends GameElement {
     }
 
     public void warpNeighbors() {
-        if (isNeighborCellNotAWall(Direction.UP)) {
+        if (cell.isNeighborCellNotAWall(Direction.UP)) {
             cell.getNeighbor(Direction.UP).setNeighbor(Direction.DOWN, linkedPortal.getCell());
         }
-        if (isNeighborCellNotAWall(Direction.DOWN)) {
+        if (cell.isNeighborCellNotAWall(Direction.DOWN)) {
             cell.getNeighbor(Direction.DOWN).setNeighbor(Direction.UP, linkedPortal.getCell());
         }
-        if (isNeighborCellNotAWall(Direction.LEFT)) {
+        if (cell.isNeighborCellNotAWall(Direction.LEFT)) {
             cell.getNeighbor(Direction.LEFT).setNeighbor(Direction.RIGHT, linkedPortal.getCell());
         }
-        if (isNeighborCellNotAWall(Direction.RIGHT)) {
+        if (cell.isNeighborCellNotAWall(Direction.RIGHT)) {
             cell.getNeighbor(Direction.RIGHT).setNeighbor(Direction.LEFT, linkedPortal.getCell());
         }
 
-    }
-
-    //todo mettre dans cell
-    private boolean isNeighborCellNotAWall(Direction direction) {
-        return cell.getNeighbor(direction) != null && !cell.getNeighbor(direction).hasWall();
     }
 
     public void setLinkedPortal(Portal portal) {
@@ -64,7 +63,6 @@ public class Portal extends GameElement {
         return linkedPortal;
     }
 
-    //todo voir ça
     @Override
     public void draw(Graphics g) {
 
@@ -76,13 +74,16 @@ public class Portal extends GameElement {
             n = 12;
         }
 
+        int x_pos = (int) getPosition().getX();
+        int y_pos = (int) getPosition().getY();
+        int cell_size = getCell().getSize();
 
         if (type == PortalType.BLUE) {
             for (int i = 0; i < n; i++) {
                 g.setColor(new Color(i, 4 * i + 50, 255));
                 g.drawOval(
-                        (int) getPosition().getX() + (getCell().getSize() / 2) - 20 + (i / 2),
-                        (int) getPosition().getY() + (getCell().getSize() / 2) - 20 + (i / 2),
+                         x_pos + (cell_size / 2) - 20 + (i / 2),
+                        y_pos + (cell_size / 2) - 20 + (i / 2),
                         40 - i,
                         48 - i
                 );
@@ -91,14 +92,13 @@ public class Portal extends GameElement {
             for (int i = 0; i < n; i++) {
                 g.setColor(new Color(255, 4 * i + 50, i));
                 g.drawOval(
-                        (int) getPosition().getX() + (getCell().getSize() / 2) - 20 + (i / 2),
-                        (int) getPosition().getY() + (getCell().getSize() / 2) - 20 + (i / 2),
+                        x_pos + (cell_size/ 2) - 20 + (i / 2),
+                        y_pos + (cell_size / 2) - 20 + (i / 2),
                         40 - i,
                         48 - i
                 );
             }
         }
-
     }
 
 }

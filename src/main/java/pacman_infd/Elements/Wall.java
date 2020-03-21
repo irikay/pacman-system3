@@ -18,47 +18,59 @@ public class Wall extends GameElement {
 
     private final char type;
 
+    private final char LEFT_UP_CORNER = 'Q';
+    private final char RIGHT_UP_CORNER = 'W';
+    private final char RIGHT_DOWN_CORNER = 'E';
+    private final char LEFT_DOWN_CORNER = 'R';
+    private final char VERTICAL = 'A';
+    private final char HORIZONTAL = 'S';
+    private final char LEFT_DOWN_LEFT_UP_CORNER = 'G';
+    private final char RIGHT_DOWN_RIGHT_UP_CORNER = 'H';
+    private final char RIGHT_UP_LEFT_UP_CORNER = 'I';
+    private final char RIGHT_DOWN_LEFT_DOWN = 'J';
+
+
+
     public Wall(Cell cell, char type) {
 
         super(cell, null, null);
         this.type = type;
     }
 
-    //todo switch
     @Override
     public void draw(Graphics g) {
         switch(type) {
-            case 'Q':
+            case LEFT_UP_CORNER:
                 drawLeftUpCorner(g);
                 break;
-            case 'W':
+            case RIGHT_UP_CORNER:
                 drawRightUpCorner(g);
                 break;
-            case 'E':
+            case RIGHT_DOWN_CORNER:
                 drawRightDownCorner(g);
                 break;
-            case 'R':
+            case LEFT_DOWN_CORNER:
                 drawLeftDownCorner(g);
                 break;
-            case 'A':
+            case VERTICAL:
                 drawVerticalLine(g);
                 break;
-            case 'S':
+            case HORIZONTAL:
                 drawHorizontalLine(g);
                 break;
-            case 'G':
+            case LEFT_DOWN_LEFT_UP_CORNER:
                 drawLeftDownCorner(g);
                 drawLeftUpCorner(g);
                 break;
-            case 'H':
+            case RIGHT_DOWN_RIGHT_UP_CORNER:
                 drawRightDownCorner(g);
                 drawRightUpCorner(g);
                 break;
-            case 'I':
+            case RIGHT_UP_LEFT_UP_CORNER:
                 drawRightUpCorner(g);
                 drawLeftUpCorner(g);
                 break;
-            case 'J':
+            case RIGHT_DOWN_LEFT_DOWN:
                 drawRightDownCorner(g);
                 drawLeftDownCorner(g);
                 break;

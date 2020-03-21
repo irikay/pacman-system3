@@ -51,6 +51,7 @@ public class GameWorld {
     private Portal portalBlue;
     private Portal portalOrange;
 
+    //todo soundmanager appartient pas a gameController?
     GameWorld(GameController gameController, char[][] levelMap, SoundManager sMger, View view, int speed) {
 
         soundManager = sMger;
@@ -116,7 +117,6 @@ public class GameWorld {
 
     }
 
-    //todo changer ça
     /**
      * Places walls on the cellMap according to wallMap
      *
@@ -222,7 +222,6 @@ public class GameWorld {
         }
     }
 
-    //todo changer ça
     void spawnPortal(int x, int y, int mouseButton) {
         int cellX = x / CELL_SIZE;
         int cellY = y / CELL_SIZE;
@@ -237,30 +236,24 @@ public class GameWorld {
     }
 
     private void spawnPortalInCell(PortalType portalType, int cellX, int cellY) {
-        if (portalType == PortalType.BLUE) {
-            if (getPortalBlue() != null) {
-                getPortalBlue().remove();
-            }
-            setPortalBlue(new Portal(cellMap[cellY][cellX], PortalType.BLUE, soundManager));
-            soundManager.playSound("portal");
-            if (getPortalOrange() != null) {
-                getPortalBlue().setLinkedPortal(getPortalOrange());
-                getPortalOrange().setLinkedPortal(getPortalBlue());
-                getPortalBlue().warpNeighbors();
-                getPortalOrange().warpNeighbors();
-            }
-        } else if (portalType == PortalType.ORANGE) {
-            if (getPortalOrange() != null) {
-                getPortalOrange().remove();
-            }
-            setPortalOrange(new Portal(cellMap[cellY][cellX], PortalType.ORANGE, soundManager));
-            soundManager.playSound("portal");
-            if (getPortalBlue() != null) {
-                getPortalOrange().setLinkedPortal(getPortalBlue());
-                getPortalBlue().setLinkedPortal(getPortalOrange());
-                getPortalOrange().warpNeighbors();
-                getPortalBlue().warpNeighbors();
-            }
+        PortalType otherPortalType;
+        if (portalType.equals(PortalType.BLUE)) {
+            otherPortalType = PortalType.ORANGE;
+        } else if (portalType.equals(PortalType.ORANGE)) {
+            otherPortalType = PortalType.BLUE;
+        } else {
+            otherPortalType = null;
+        }
+        if (getPortal(portalType) != null) {
+            getPortal(portalType).remove();
+        }
+        setPortal(new Portal(cellMap[cellY][cellX], portalType, soundManager));
+        soundManager.playSound("portal");
+        if (getPortal(otherPortalType) != null) {
+            getPortal(portalType).setLinkedPortal(getPortal(otherPortalType));
+            getPortal(otherPortalType).setLinkedPortal(getPortal(portalType));
+            getPortal(portalType).warpNeighbors();
+            getPortal(otherPortalType).warpNeighbors();
         }
     }
 
@@ -305,6 +298,33 @@ public class GameWorld {
      */
     Portal getPortalBlue() {
         return portalBlue;
+    }
+
+    /**
+     * @param portal the portal to set
+     */
+    void setPortal(Portal portal) {
+        if (portal.getType().equals(PortalType.BLUE)) {
+            this.portalBlue = portal;
+        }
+       else if (portal.getType().equals(PortalType.ORANGE)) {
+            this.portalOrange = portal;
+        }
+    }
+
+    /**
+     * @param portalType the portal type to get
+     */
+    Portal getPortal(PortalType portalType) {
+        if (portalType.equals(PortalType.BLUE)) {
+            return portalBlue;
+        }
+        else if (portalType.equals(PortalType.ORANGE)) {
+            return portalOrange;
+        }
+        else {
+            return null;
+        }
     }
 
     /**

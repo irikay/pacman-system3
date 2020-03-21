@@ -128,6 +128,10 @@ public class Cell {
         return neighbors.get(dir);
     }
 
+    public boolean isNeighborCellNotAWall(Direction direction) {
+        return getNeighbor(direction) != null && !getNeighbor(direction).hasWall();
+    }
+
     /**
      *
      * @return a HashMap of neighboring Cells.
