@@ -16,6 +16,8 @@ import pacman_infd.Enums.PortalType;
 import pacman_infd.Strategies.ChasePacmanStrategy;
 import pacman_infd.Strategies.MoveRandomStrategy;
 
+import javax.swing.*;
+
 /**
  *
  * @author Marinus

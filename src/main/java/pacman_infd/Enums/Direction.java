@@ -6,65 +6,22 @@
 package pacman_infd.Enums;
 
 /**
- *
+ * Directions given in clockwise order
  * @author Marinus
  */
 public enum Direction {
 
-    UP, DOWN, LEFT, RIGHT;
+    UP,RIGHT,DOWN,LEFT;
 
-    /**
-     *
-     * @return
-     */
     public Direction getOpposite() {
-        Direction d = null;
-        switch (this) {
-            case UP:
-                d = DOWN; break;
-            case DOWN:
-                d = UP; break;
-            case LEFT:
-                d = RIGHT; break;
-            case RIGHT:
-                d = LEFT; break;
-            default:
-                break;
-        }
-        return d;
+        return values()[(ordinal() + values().length/2) % values().length];
     }
     
     public Direction nextDirectionClockwise() {
-        Direction d = null;
-        switch (this) {
-            case UP:
-                d = RIGHT; break;
-            case DOWN:
-                d = LEFT; break;
-            case LEFT:
-                d = UP; break;
-            case RIGHT:
-                d = DOWN; break;
-            default:
-                break;
-        }
-        return d;
+        return values()[(ordinal() + 1) % values().length];
     }
-    
+
     public Direction nextDirectionCounterClockwise() {
-        Direction d = null;
-        switch (this) {
-            case UP:
-                d = LEFT; break;
-            case DOWN:
-                d = RIGHT; break;
-            case LEFT:
-                d = DOWN; break;
-            case RIGHT:
-                d = UP; break;
-            default:
-                break;
-        }
-        return d;
+        return values()[(ordinal() - 1) % values().length];
     }
 }
