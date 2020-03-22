@@ -135,6 +135,7 @@ public class EventHandler implements ElementEventListener {
             time = 5;
         makeGhostsVulnerable(time);
         timeEnterInSuperMode += 1;
+        gameEventListener.stopTime(time);
         //todo faire stop le time dans le game controller -> ajouter stopTime dans GameEventListener
     }
     private void makeGhostsVulnerable(int time) {

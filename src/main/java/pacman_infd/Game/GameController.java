@@ -9,6 +9,7 @@ import pacman_infd.Enums.GameState;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.TimerTask;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import pacman_infd.Elements.MovingGameElement;
@@ -216,5 +217,20 @@ public class GameController implements GameEventListener {
         if(gameWorld != null){
              gameWorld.spawnPortal(x, y, mouseButton);  
         }
+    }
+
+    /**
+     * Stop the gametime for a certain time
+     * @param time the time in second
+     */
+    public void stopTime(int time) {
+        stopWatch.stop();
+        final Timer stopTimer = new Timer(time * 1000, new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                stopWatch.start();
+                ((Timer)evt.getSource()).stop();
+            }
+        });
+        stopTimer.start();
     }
 }
