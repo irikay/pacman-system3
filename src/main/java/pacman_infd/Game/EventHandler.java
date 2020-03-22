@@ -125,6 +125,11 @@ public class EventHandler implements ElementEventListener {
     }
 
     @Override
+    public void increaseLife() {
+        gameEventListener.increaseLife();
+    }
+
+    @Override
     public void enterSuperMode() {
         numberGhostEatenInSuperMode = 0;
 
@@ -136,8 +141,8 @@ public class EventHandler implements ElementEventListener {
         makeGhostsVulnerable(time);
         timeEnterInSuperMode += 1;
         gameEventListener.stopTime(time);
-        //todo faire stop le time dans le game controller -> ajouter stopTime dans GameEventListener
     }
+
     private void makeGhostsVulnerable(int time) {
         for (Cell cell : gameWorld.getCells()) {
             for (MovingGameElement element : cell.getMovingElements()) {

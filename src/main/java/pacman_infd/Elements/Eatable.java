@@ -6,6 +6,8 @@
 
 package pacman_infd.Elements;
 
+import pacman_infd.Game.GameEventListener;
+
 /**
  *
  * @author Marinus

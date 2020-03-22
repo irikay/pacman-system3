@@ -23,5 +23,6 @@ public interface ElementEventListener extends EventListener{
     public void eatableElementEaten(Eatable e);
     public void enterSuperMode();
     public void killPacman();
+    public void increaseLife();
 
 }

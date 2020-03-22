@@ -8,9 +8,8 @@ package pacman_infd.Elements;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import pacman_infd.Game.Cell;
-import pacman_infd.Game.ElementEventListener;
-import pacman_infd.Game.SoundManager;
+
+import pacman_infd.Game.*;
 
 
 /**
@@ -39,6 +38,7 @@ public class Cherry extends GameElement implements Eatable{
     @Override
     public void eatMe() {
         elementEventListener.eatableElementEaten(this);
+        elementEventListener.increaseLife();
         
         if(cell.getStaticElement().equals(this)){
             cell.setStaticElement(null);

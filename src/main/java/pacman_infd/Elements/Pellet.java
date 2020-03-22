@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import pacman_infd.Game.Cell;
 import pacman_infd.Game.ElementEventListener;
+import pacman_infd.Game.GameEventListener;
 import pacman_infd.Game.SoundManager;
 
 /**

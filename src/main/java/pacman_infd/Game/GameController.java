@@ -9,7 +9,6 @@ import pacman_infd.Enums.GameState;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.TimerTask;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import pacman_infd.Elements.MovingGameElement;
@@ -201,6 +200,12 @@ public class GameController implements GameEventListener {
         if(scorePanel.getLives() == 0){
             gameOver();
         }
+    }
+
+    @Override
+    public void increaseLife() {
+        scorePanel.earnLife();
+        scorePanel.repaint();
     }
 
     @Override

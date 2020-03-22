@@ -13,8 +13,10 @@ package pacman_infd.Game;
 public interface GameEventListener {
     
     public void decreaseLife();
+    public void increaseLife();
     public void increasePoints(int amount);
     public void refocus();
     public void stopTime(int time);
     void levelIsWon();
+
 }

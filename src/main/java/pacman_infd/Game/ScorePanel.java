@@ -71,6 +71,14 @@ public class ScorePanel extends JPanel {
     {
         lives--;
     }
+
+    /**
+     * Earns one life from the life total.
+     */
+    void earnLife()
+    {
+        lives++;
+    }
     
     /**
      * 

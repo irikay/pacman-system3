@@ -13,6 +13,7 @@ import javax.swing.Timer;
 import pacman_infd.Game.Cell;
 import pacman_infd.Game.ElementEventListener;
 import pacman_infd.Enums.GhostState;
+import pacman_infd.Game.GameEventListener;
 import pacman_infd.Game.SoundManager;
 import pacman_infd.Strategies.FleeStrategy;
 import pacman_infd.Strategies.ReturnHomeStrategy;
