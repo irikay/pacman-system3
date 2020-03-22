@@ -13,6 +13,8 @@ public enum Direction {
 
     UP,RIGHT,DOWN,LEFT;
 
+    public static int length = Direction.values().length;
+
     public Direction getOpposite() {
         return values()[(ordinal() + values().length/2) % values().length];
     }
@@ -22,6 +24,6 @@ public enum Direction {
     }
 
     public Direction nextDirectionCounterClockwise() {
-        return values()[(ordinal() - 1) % values().length];
+        return values()[Math.floorMod((ordinal() - 1), values().length)];
     }
 }

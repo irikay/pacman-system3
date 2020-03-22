@@ -5,8 +5,7 @@
  */
 package pacman_infd.Elements;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -22,6 +21,18 @@ import pacman_infd.Game.SoundManager;
 public class Pacman extends MovingGameElement implements KeyListener {
 
     private Direction currentDirection;
+    private int MOUTH_SIZE = 45;
+    private final int END_MOUTH_ARC = 20;
+    private final double CELL_SIZE_TO_PACMAN_SIZE_RATIO = 1.39;
+    private final double CELL_SIZE_TO_EYE_SIZE_RATIO = 0.35;
+    private final double CELL_SIZE_TO_PUPIL_SIZE_RATIO = 0.2;
+    private final int PADDING = 5;
+    private final Color PACMAN_COLOR = Color.yellow;
+    private final Color EYE_COLOR = Color.white;
+    private final Color PUPIL_COLOR = Color.black;
+
+    private int timeBeforeClosingMouth = 10;
+    private int actualTimer = timeBeforeClosingMouth;
 
     public Pacman(Cell cell, ElementEventListener gameEventListener, int speed, SoundManager sMger) {
         super(cell, gameEventListener, speed, sMger);
@@ -48,7 +59,6 @@ public class Pacman extends MovingGameElement implements KeyListener {
         elementEventListener.movingElementActionPerformed(this);
     }
 
-    //todo draw en fonction de sa position
     /**
      * Draw Pacman.
      *
@@ -57,40 +67,99 @@ public class Pacman extends MovingGameElement implements KeyListener {
     @Override
     public void draw(Graphics g) {
 
+        int pacmanSize = (int) Math.round(cell.getSize() * CELL_SIZE_TO_PACMAN_SIZE_RATIO);
+        int eyeSize = (int) Math.round(cell.getSize() * CELL_SIZE_TO_EYE_SIZE_RATIO);
+        int pupilSize = (int) Math.round(cell.getSize() * CELL_SIZE_TO_PUPIL_SIZE_RATIO);
+
+        int posX = (int) getPosition().getX() - PADDING;
+        int posY = (int) getPosition().getY() - PADDING;
+        int centerPacmanX = posX + pacmanSize / 2;
+        int centerPacmanY = posY + pacmanSize / 2;
+        Point centerPacman = new Point(centerPacmanX, centerPacmanY);
+        int centerEyeX = centerPacmanX + pacmanSize/4;
+        int centerEyeY = centerPacmanY - pacmanSize/4;
+        Point centerEye = new Point(centerEyeX, centerEyeY);
+
         //body
-        g.setColor(Color.YELLOW);
-        g.fillOval(
-                (int) getPosition().getX() - 5,
-                (int) getPosition().getY() - 5,
-                cell.getSize() + 10,
-                cell.getSize() + 10
-        );
-        //eye
-        g.setColor(Color.WHITE);
-        g.fillOval(
-                (int) getPosition().getX() + 13,
-                (int) getPosition().getY() - 1,
-                10,
-                10
-        );
-        //pupil
-        g.setColor(Color.BLACK);
-        g.fillOval(
-                (int) getPosition().getX() + 16,
-                (int) getPosition().getY() + 1,
-                5,
-                5
-        );
-        //mouth
-        g.fillArc(
-                (int) getPosition().getX() - 5,
-                (int) getPosition().getY() - 5,
-                cell.getSize() + 10,
-                cell.getSize() + 10,
-                -25,
-                45
+        int numberRotation = getNumberRotation();
+        g.setColor(PACMAN_COLOR);
+        int end = getEndMouthArc(numberRotation);
+
+        int bodySize;
+        if (actualTimer > 0) {
+            bodySize = 360 - MOUTH_SIZE;
+            actualTimer -= 1;
+        } else {
+            actualTimer = timeBeforeClosingMouth;
+            bodySize = 360;
+        }
+        g.fillArc( posX,
+                posY,
+                pacmanSize,
+                pacmanSize,
+                end,
+                bodySize
         );
 
+        for(int i=0; i < numberRotation; i++) {
+            rotateAroundCenter(centerPacman, centerEye);
+        }
+        //eye
+        g.setColor(EYE_COLOR);
+        drawOval(g, eyeSize, centerEye);
+
+        //pupil
+        g.setColor(PUPIL_COLOR);
+        drawOval(g, pupilSize, centerEye);
+    }
+
+    private void drawOval(Graphics g, int size, Point center) {
+        g.fillOval(
+                doubleToInt(center.getX() - size / 2),
+                doubleToInt(center.getY() - size / 2),
+                size,
+                size
+        );
+    }
+
+    private int doubleToInt(double dbl) {
+        return (int) Math.round(dbl);
+    }
+
+    private int getNumberRotation() {
+        Direction tmpDir;
+        int numberRotation = 0;
+        if (currentDirection == null)
+            tmpDir = Direction.RIGHT;
+        else
+            tmpDir = currentDirection;
+        while(tmpDir != Direction.RIGHT) {
+            tmpDir = tmpDir.nextDirectionCounterClockwise();
+            numberRotation++;
+        }
+        return numberRotation;
+    }
+
+    private void rotateAroundCenter(Point center, Point point) {
+        double angle = (double) 360/Direction.length;
+        angle = Math.toRadians(angle);
+        double newX = center.getX() +
+                (point.getX()-center.getX())*Math.cos(angle) - (point.getY()-center.getY())*Math.sin(angle);
+        double newY = center.getY() +
+                (point.getX()-center.getX())*Math.sin(angle) + (point.getY()-center.getY())*Math.cos(angle);
+        point.setLocation(newX, newY);
+    }
+
+    /**
+     * Get the end arc of the mouth
+     * @return the arc in degree
+     */
+    private int getEndMouthArc(int numberRotation) {
+        int endArc = END_MOUTH_ARC;
+        for(int i=0; i < numberRotation; i++) {
+            endArc -= 360/Direction.length;
+        }
+        return endArc;
     }
 
     @Override
