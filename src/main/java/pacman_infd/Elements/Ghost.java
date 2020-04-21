@@ -5,19 +5,18 @@
  */
 package pacman_infd.Elements;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.Timer;
+import pacman_infd.Enums.GhostState;
 import pacman_infd.Game.Cell;
 import pacman_infd.Game.ElementEventListener;
-import pacman_infd.Enums.GhostState;
-import pacman_infd.Game.GameEventListener;
 import pacman_infd.Game.SoundManager;
 import pacman_infd.Strategies.FleeStrategy;
 import pacman_infd.Strategies.ReturnHomeStrategy;
 import pacman_infd.Strategies.Strategy;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
