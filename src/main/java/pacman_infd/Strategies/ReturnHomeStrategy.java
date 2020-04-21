@@ -14,8 +14,8 @@ import pacman_infd.Game.Cell;
  */
 public class ReturnHomeStrategy implements Strategy{
     
-        private final PathFinder pathFinder;
-        private Cell homeCell;
+    private final PathFinder pathFinder;
+    private Cell homeCell;
     
     public ReturnHomeStrategy(Cell homeCell){
         pathFinder = new PathFinder();
@@ -24,8 +24,6 @@ public class ReturnHomeStrategy implements Strategy{
     
     @Override
     public Cell giveNextCell(Cell currentCell) {
-
         return pathFinder.nextCellInPath(currentCell, homeCell);
-
     }
 }

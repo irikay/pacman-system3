@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package pacman_infd;
-
 import java.awt.Color;
 import java.util.List;
 import org.junit.After;
@@ -19,7 +18,10 @@ import pacman_infd.Game.Cell;
 import pacman_infd.Game.GameController;
 import pacman_infd.Game.GameWorld;
 import pacman_infd.Game.View;
+import pacman_infd.Strategies.ChasePacmanStrategy;
+import pacman_infd.Strategies.FleeStrategy;
 import pacman_infd.Strategies.PathFinder;
+import pacman_infd.Strategies.ReturnHomeStrategy;
 
 /**
  *
@@ -137,6 +139,33 @@ public class PathFinderTest {
         //assert that cell is a valid neighbour of gameWorld.getCellMap()[0][0].
         assert (gameWorld.getCellMap()[0][0].getNeighbors().values().contains(cell));
 
+    }
+
+
+    @Test
+    public void pathFinderTestDifferentStrategies() {
+        char[][] levelMap = {
+                {'-', 'A'},
+                {'-', '-'},
+                {'-', 'A'},
+                {'P', 'A'}
+        };
+
+        //create a new GameWorld.
+        gameWorld = new GameWorld(gameController, levelMap, gameController.getSoundManager(), new View(), 0);
+
+        ReturnHomeStrategy strategy = new ReturnHomeStrategy(gameWorld.getCellMap()[2][0]);
+
+        // test the return hom strategy home is on [2][0] so on the botom of [1][0]
+        assert(strategy.giveNextCell(gameWorld.getCellMap()[1][0]) == gameWorld.getCellMap()[1][0].getNeighbor(Direction.DOWN) );
+
+        FleeStrategy fleeStrategy = new FleeStrategy();
+        // test the flee strategy home, get away from Pacman
+        assert(fleeStrategy.giveNextCell(gameWorld.getCellMap()[2][0]) == gameWorld.getCellMap()[2][0].getNeighbor(Direction.UP) );
+
+        ChasePacmanStrategy chasePacmanStrategy = new ChasePacmanStrategy();
+        // test the flee strategy home, get away from Pacman
+        assert(chasePacmanStrategy.giveNextCell(gameWorld.getCellMap()[2][0]) == gameWorld.getCellMap()[2][0].getNeighbor(Direction.DOWN) );
     }
 
 }

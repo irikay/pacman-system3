@@ -27,7 +27,7 @@ public class ScorePanel extends JPanel {
     private static final int INITIAL_NUMBER_LIVES = 3;
     private static final String INITIAL_TIME = "00:00";
     
-    ScorePanel()
+    public ScorePanel()
     {
         resetStats();
     }
@@ -84,7 +84,7 @@ public class ScorePanel extends JPanel {
      * 
      * @return lives
      */
-    int getLives()
+    public int getLives()
     {
         return lives;
     }

@@ -12,7 +12,7 @@ import java.net.URI;
  *
  * @author Marinus
  */
-class FileLoader {
+public class FileLoader {
     
     private final URI path;
     

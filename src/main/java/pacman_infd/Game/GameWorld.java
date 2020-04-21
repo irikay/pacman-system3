@@ -36,9 +36,9 @@ public class GameWorld {
     private int width;
     private int height;
 
-    private final SoundManager soundManager;
+    public final SoundManager soundManager;
     private final View view;
-    private EventHandler eventHandler;
+    public EventHandler eventHandler;
 
     private List<Cell> cells;
     private Cell[][] cellMap;
@@ -202,7 +202,7 @@ public class GameWorld {
      *
      * @return number of pellets
      */
-    private int countPellets() {
+    public int countPellets() {
         int number = 0;
         for (Cell cell : cells) {
             if (cell.getStaticElement() instanceof Pellet) {
@@ -239,9 +239,9 @@ public class GameWorld {
         findNeighbors();
         if (isEmptyGameCell(getCell(cellY, cellX))) {
             if (mouseButton == 1) {
-                spawnPortalInCell(PortalType.BLUE, cellX, cellY);
+                spawnPortalInCell(PortalType.BLUE, cellY, cellX);
             } else if (mouseButton == 3) {
-                spawnPortalInCell(PortalType.ORANGE, cellX, cellY);
+                spawnPortalInCell(PortalType.ORANGE, cellY, cellX);
             }
         }
     }

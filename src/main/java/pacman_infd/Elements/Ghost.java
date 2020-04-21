@@ -23,7 +23,7 @@ import pacman_infd.Strategies.Strategy;
  *
  * @author Marinus
  */
-public class Ghost extends MovingGameElement implements Eatable{
+public class  Ghost extends MovingGameElement implements Eatable{
 
     private Strategy strategy;
     private final Strategy initialStrategy;

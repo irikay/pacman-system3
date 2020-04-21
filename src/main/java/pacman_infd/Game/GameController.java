@@ -61,7 +61,9 @@ public class GameController implements GameEventListener {
      */
     @Override
     public void refocus(){
-        view.requestFocus();
+        if (view != null){
+            view.requestFocus();
+        }
     }
 
     /**

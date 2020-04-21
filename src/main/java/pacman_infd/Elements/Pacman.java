@@ -44,13 +44,21 @@ public class Pacman extends MovingGameElement implements KeyListener {
      * next cell has a wall. Check for collisions after move is complete.
      */
     @Override
-    protected void move() {
+    public void move() {
         Cell moveTo = cell.getNeighbor(currentDirection);
         if (moveTo != null && !moveTo.hasWall()) {
             moveTo.addMovingElement(this);
             cell.removeMovingElement(this);
             setCell(moveTo);
         }
+    }
+
+    /**
+     * Change pacman's direction
+     * @param direction the new direction
+     */
+    public void changeDirection(Direction direction) {
+        currentDirection = direction;
     }
 
     @Override
