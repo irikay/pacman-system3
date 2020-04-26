@@ -30,6 +30,10 @@ public class TrapElement extends ATimeBasedElement {
         super(cell, evtl, sMger, IMAGE_NAME, DEFAULT_TIME + new Random().nextInt(RANDOM_TIME_OFFSET));
     }
 
+    public TrapElement(Cell cell){
+        super(cell, DEFAULT_TIME);
+    }
+
     /**
      *
      * @param gameEventListener the game world listener.

@@ -57,6 +57,13 @@ public abstract class MovingGameElement extends GameElement{
     protected boolean isVisible;
 
     public MovingGameElement(Cell cell, ElementEventListener gameEventListener, int speed, SoundManager sMger) {
+        this(cell, gameEventListener, speed, sMger, null);
+
+    }
+
+    public MovingGameElement(Cell cell, ElementEventListener gameEventListener, int speed, SoundManager sMger,
+                             Direction direction) {
+        this.currentDirection = direction;
         this.cell = cell;
         this.elementEventListener = gameEventListener;
 
@@ -69,7 +76,7 @@ public abstract class MovingGameElement extends GameElement{
         this.isVisible = true;
 
         super.soundManager = sMger;
-        
+
         this.timer = new Timer(this.getNextStepTime(), new TaskMovement());
         this.timer.start();
     }
@@ -96,7 +103,7 @@ public abstract class MovingGameElement extends GameElement{
     protected abstract void move();
 
     /**
-     * WTF ROBIN, OPEN YOUR EYES !
+     * Attempt to move the movingGameObject and call the notice it to the elementEventLister (Collision).
      */
     public void moveTimerActionPerformed(){
         move();
@@ -134,6 +141,14 @@ public abstract class MovingGameElement extends GameElement{
      */
     public void setMoving(boolean isMoving){
         this.isMoving = isMoving;
+    }
+
+    /**
+     *
+     * @return true if Pacman is moving.
+     */
+    public boolean isMoving(){
+        return this.isMoving;
     }
 
     /**

@@ -27,6 +27,19 @@ public abstract class ATimeBasedElement extends AExtensionElement {
         this.timer = new Timer(time, new EndActionTask());
     }
 
+    public ATimeBasedElement(Cell cell, int time){
+        super(cell);
+
+        this.timer = new Timer(time, new EndActionTask());
+    }
+
+    /**
+     * Useful for unit test.
+     */
+    public void performEnd(){
+        this.endTimer();
+    }
+
     /**
      * Start the timer to call the end method after the timer given.
      */

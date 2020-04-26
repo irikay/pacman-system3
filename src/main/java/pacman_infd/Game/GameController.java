@@ -57,6 +57,10 @@ public class GameController implements GameEventListener {
 
     }
 
+    public void setGameWorld(GameWorld gameWorld){
+        this.gameWorld = gameWorld;
+    }
+
     /**
      * give focus back to the view
      */
@@ -192,7 +196,7 @@ public class GameController implements GameEventListener {
 
     }
 
-    GameState getGameState() {
+    public GameState getGameState() {
         return gameState;
     }
 

@@ -29,6 +29,10 @@ public class PepperElement extends ATimeBasedElement {
         super(cell, evtl, sMger, IMAGE_NAME, TIME + new Random().nextInt(OFFSET_TIME));
     }
 
+    public PepperElement(Cell cell){
+        super(cell, TIME);
+    }
+
     /**
      *
      * @param gameEventListener the game world listener.

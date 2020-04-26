@@ -30,6 +30,10 @@ public class FishElement extends ATimeBasedElement{
         super(cell, evtl, sMger, IMAGINE_NAME, DEFAULT_TIME + new Random().nextInt(RANDOM_TIME_OFFSET));
     }
 
+    public FishElement(Cell cell){
+        super(cell, DEFAULT_TIME);
+    }
+
     /**
      *
      * @param gameEventListener the game world listener.

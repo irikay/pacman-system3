@@ -48,8 +48,8 @@ public class Pacman extends MovingGameElement implements KeyListener {
      */
     public Direction newDirection;
 
-    public Pacman(Cell cell, ElementEventListener gameEventListener, int speed, SoundManager sMger) {
-        super(cell, gameEventListener, speed, sMger);
+    public Pacman(Cell cell, ElementEventListener gameEventListener, int speed, SoundManager sMger, Direction direction) {
+        super(cell, gameEventListener, speed, sMger, direction);
 
         this.keyDirectionMap = new HashMap<Integer, Direction>();
         this.keyDirectionMap.put(KeyEvent.VK_UP, Direction.UP);
@@ -59,6 +59,9 @@ public class Pacman extends MovingGameElement implements KeyListener {
 
     }
 
+    public Pacman(Cell cell, ElementEventListener gameEventListener, int speed, SoundManager sMger) {
+        this(cell, gameEventListener, speed, sMger, null);
+    }
     /**
      *
      * @param color the new color for the pacman.

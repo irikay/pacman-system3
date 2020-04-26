@@ -27,6 +27,10 @@ public class PotatoElement extends ATimeBasedElement{
         super(cell, evtl, sMger, IMAGE_NAME, TIME + new Random().nextInt(OFFSET_TIME));
     }
 
+    public PotatoElement(Cell cell){
+        super(cell, TIME);
+    }
+
     /**
      *
      * @param gameEventListener the game world listener.

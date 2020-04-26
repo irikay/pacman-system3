@@ -34,6 +34,10 @@ public abstract class AExtensionElement extends GameElement{
         this.img = loadImage(imageName);
     }
 
+    public AExtensionElement(Cell cell){
+        super(cell, null, null);
+    }
+
     public static BufferedImage loadImage(String imageName) throws IOException{
         String path = IMAGE_DEFAULT_PATH + imageName + ".png";
 

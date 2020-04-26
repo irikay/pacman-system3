@@ -38,8 +38,10 @@ public class  Ghost extends MovingGameElement implements Eatable{
 
 
 
-    public Ghost(Cell cell, ElementEventListener gameEventListener, int speed, Strategy strategy, Color color, SoundManager sMger) {
-        super(cell, gameEventListener, speed, sMger);
+    public Ghost(Cell cell, ElementEventListener gameEventListener, int speed, Strategy strategy, Color color,
+                 SoundManager sMger, Direction direction) {
+        super(cell, gameEventListener, speed, sMger, direction);
+
         this.strategy = strategy;
         this.color = color;
         initialStrategy = strategy;
@@ -55,6 +57,11 @@ public class  Ghost extends MovingGameElement implements Eatable{
 
         deathTimer = new Timer(DEATH_TIMER_DELAY, deathTimerAction);
         vulnerabilityTimer = new Timer(0, vulnerabilityTimerAction);
+    }
+
+    public Ghost(Cell cell, ElementEventListener gameEventListener, int speed, Strategy strategy, Color color,
+                 SoundManager sMger) {
+        this(cell, gameEventListener, speed, strategy, color, sMger, null);
     }
 
     /**

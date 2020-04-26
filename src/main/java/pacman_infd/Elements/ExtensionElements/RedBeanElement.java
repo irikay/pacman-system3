@@ -56,6 +56,10 @@ public class RedBeanElement extends ATimeBasedElement{
         this.fireTimer = new Timer(1000 / FIRE_RATE, new FireTask());
     }
 
+    public RedBeanElement(Cell cell){
+        super(cell, DEFAULT_TIME);
+    }
+
     private Map<Direction, Image> loadProjectileImages(BufferedImage img){
         Map<Direction, Image> maps = new HashMap<>();
 
@@ -77,6 +81,14 @@ public class RedBeanElement extends ATimeBasedElement{
         maps.put(Direction.LEFT, img4);
 
         return maps;
+    }
+
+    /**
+     *
+     * @return return the current Shooter.
+     */
+    public Pacman getShooter(){
+        return this.shooter;
     }
 
     /**

@@ -50,6 +50,14 @@ public class TeleporterElement extends AExtensionElement {
         this.isUsable = true;
     }
 
+    public TeleporterElement(Cell cell){
+        super(cell);
+
+        this.timer = new Timer(BORKEN_LINK, new NotUsableAction());
+
+        this.isUsable = true;
+    }
+
     /**
      *
      * @param teleporterElement the teleporter to link with this one.
