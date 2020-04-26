@@ -5,6 +5,7 @@
  */
 package pacman_infd.Game;
 
+import pacman_infd.Elements.Ghost;
 import pacman_infd.Enums.GameState;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -239,5 +240,20 @@ public class GameController implements GameEventListener {
             }
         });
         stopTimer.start();
+    }
+
+    /**
+     *
+     * @param action make an action on all Ghost of the board.
+     */
+    @Override
+    public void actionOnGhost(IGhostAction action) {
+        for (Cell cell : gameWorld.getCells()) {
+            for (MovingGameElement element : cell.getMovingElements()) {
+                if (element instanceof Ghost) {
+                    action.perform((Ghost) element);
+                }
+            }
+        }
     }
 }

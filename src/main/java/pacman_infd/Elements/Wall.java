@@ -29,6 +29,9 @@ public class Wall extends GameElement {
     private final char RIGHT_DOWN_LEFT_DOWN = 'J';
 
 
+    public Wall(){
+        this.type = VERTICAL;
+    }
 
     public Wall(Cell cell, char type) {
 

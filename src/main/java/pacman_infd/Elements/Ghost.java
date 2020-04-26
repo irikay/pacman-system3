@@ -5,6 +5,7 @@
  */
 package pacman_infd.Elements;
 
+import pacman_infd.Enums.Direction;
 import pacman_infd.Enums.GhostState;
 import pacman_infd.Game.Cell;
 import pacman_infd.Game.ElementEventListener;
@@ -19,7 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- *
+ * Edited by BOOSKO Sam to match a readable MovingGameElement. I don't rework this class....
  * @author Marinus
  */
 public class  Ghost extends MovingGameElement implements Eatable{
@@ -54,6 +55,14 @@ public class  Ghost extends MovingGameElement implements Eatable{
 
         deathTimer = new Timer(DEATH_TIMER_DELAY, deathTimerAction);
         vulnerabilityTimer = new Timer(0, vulnerabilityTimerAction);
+    }
+
+    /**
+     *
+     * @return true if the ghost is died.
+     */
+    public boolean isDead(){
+        return this.state.equals(GhostState.DEAD);
     }
 
     /**
@@ -114,13 +123,34 @@ public class  Ghost extends MovingGameElement implements Eatable{
     }
 
     /**
+     *
+     * @param nextCell the next cell.
+     * @return assess the direction needed to go on this next cell.
+     */
+    private Direction assessDirection(Cell nextCell){
+        Cell c;
+        for(Direction direction : Direction.values()){
+            c = cell.getNeighbor(direction);
+            if(c == nextCell){
+                return direction;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Move to the next cell. Uses its current strategy to determine which cell
      * to move to.
      */
     @Override
     protected void move() {
         Cell nextCell = strategy.giveNextCell(cell);
-        if (nextCell != null) {
+        Direction directionNeeded = this.assessDirection(nextCell);
+        nextCell = cell.getNeighbor(this, directionNeeded);
+
+        if(nextCell != null && !nextCell.hasWall()) {
+            currentDirection = directionNeeded;
             nextCell.addMovingElement(this);
             cell.removeMovingElement(this);
             setCell(nextCell);
@@ -148,7 +178,7 @@ public class  Ghost extends MovingGameElement implements Eatable{
         } else if (state.equals(GhostState.NORMAL)){
             this.strategy = new FleeStrategy();
             state = GhostState.VULNERABLE;
-            setSpeed((int) (speed * 1.50));
+            super.setSpeedModifier(0.5f);
             vulnerabilityTimer = new Timer(time * 1000, vulnerabilityTimerAction);
             vulnerabilityTimer.start();
         }
@@ -161,14 +191,17 @@ public class  Ghost extends MovingGameElement implements Eatable{
     private void backToNormal() {
         strategy = initialStrategy;
         state = GhostState.NORMAL;
-        setSpeed(speed);
+        super.setSpeedModifier(1f);
         vulnerabilityTimer.stop();
         deathTimer.stop();
     }
 
-    private void dead() {
+    /**
+     * Set public to be able to kill him when I WANT.
+     */
+    public void dead() {
         // Make them fast so they can reach the middle of the maze in less than 5 seconds
-        setSpeed(speed / 5);
+        super.setSpeedModifier(5f);
         strategy = new ReturnHomeStrategy(startCell);
         state = GhostState.DEAD;
         deathTimer.start();
@@ -182,18 +215,6 @@ public class  Ghost extends MovingGameElement implements Eatable{
     
     public GhostState getState(){
         return state;
-    }
-
-    /**
-     * This is called each 'tick' of the timer. This is used by the GameWorld to
-     *
-     * @param e
-     */
-    @Override
-    public void moveTimerActionPerformed(ActionEvent e) {
-        move();
-        //checkCollisions();
-        elementEventListener.movingElementActionPerformed(this);
     }
 
     private void vulnerabilityTimerActionPerformed(ActionEvent evt) {

@@ -9,6 +9,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.security.Key;
+import java.util.HashMap;
+import java.util.Map;
+
+import pacman_infd.Game.BridgeCell;
 import pacman_infd.Game.Cell;
 import pacman_infd.Enums.Direction;
 import pacman_infd.Game.ElementEventListener;
@@ -20,23 +25,75 @@ import pacman_infd.Game.SoundManager;
  */
 public class Pacman extends MovingGameElement implements KeyListener {
 
-    private Direction currentDirection;
     private int MOUTH_SIZE = 45;
     private final int END_MOUTH_ARC = 20;
     private final double CELL_SIZE_TO_PACMAN_SIZE_RATIO = 1.39;
     private final double CELL_SIZE_TO_EYE_SIZE_RATIO = 0.35;
     private final double CELL_SIZE_TO_PUPIL_SIZE_RATIO = 0.2;
     private final int PADDING = 5;
-    private final Color PACMAN_COLOR = Color.yellow;
+    private Color PACMAN_COLOR = Color.yellow;
     private final Color EYE_COLOR = Color.white;
     private final Color PUPIL_COLOR = Color.black;
 
     private int timeBeforeClosingMouth = 10;
     private int actualTimer = timeBeforeClosingMouth;
 
+    /**
+     * By Sam, to improve the movement
+     */
+    public Map<Integer, Direction> keyDirectionMap;
+
+    /**
+     * Save this new direction and try it on case if can do it. Improve the gameplay.
+     */
+    public Direction newDirection;
+
     public Pacman(Cell cell, ElementEventListener gameEventListener, int speed, SoundManager sMger) {
         super(cell, gameEventListener, speed, sMger);
 
+        this.keyDirectionMap = new HashMap<Integer, Direction>();
+        this.keyDirectionMap.put(KeyEvent.VK_UP, Direction.UP);
+        this.keyDirectionMap.put(KeyEvent.VK_DOWN, Direction.DOWN);
+        this.keyDirectionMap.put(KeyEvent.VK_LEFT, Direction.LEFT);
+        this.keyDirectionMap.put(KeyEvent.VK_RIGHT, Direction.RIGHT);
+
+    }
+
+    /**
+     *
+     * @param color the new color for the pacman.
+     */
+    public void setPacmanColor(Color color){
+        this.PACMAN_COLOR = color;
+    }
+
+    /**
+     *
+     * @return the color of pacman.
+     */
+    public Color getPacmanColor(){
+        return this.PACMAN_COLOR;
+    }
+
+    /**
+     *
+     * @param alpha the alpha to the pacman color.
+     */
+    public void setColorAlpha(float alpha){
+        this.PACMAN_COLOR = new Color(
+                PACMAN_COLOR.getRed() / 255f,
+                PACMAN_COLOR.getGreen() / 255f,
+                PACMAN_COLOR.getBlue() / 255f,
+                alpha
+        );
+    }
+
+    /**
+     *
+     * @return the current Direction.
+     */
+    public Direction getCurrentDirection(){
+        return this.currentDirection;
     }
 
     /**
@@ -45,7 +102,14 @@ public class Pacman extends MovingGameElement implements KeyListener {
      */
     @Override
     public void move() {
-        Cell moveTo = cell.getNeighbor(currentDirection);
+        if(this.newDirection != null &&
+                cell.getNeighbor(this, newDirection) != null &&
+                !cell.getNeighbor(this, newDirection).hasWall()) {
+            currentDirection = newDirection;
+            newDirection = null;
+        }
+
+        Cell moveTo = cell.getNeighbor(this, currentDirection);
         if (moveTo != null && !moveTo.hasWall()) {
             moveTo.addMovingElement(this);
             cell.removeMovingElement(this);
@@ -59,12 +123,6 @@ public class Pacman extends MovingGameElement implements KeyListener {
      */
     public void changeDirection(Direction direction) {
         currentDirection = direction;
-    }
-
-    @Override
-    public void moveTimerActionPerformed(ActionEvent e) {
-        move();
-        elementEventListener.movingElementActionPerformed(this);
     }
 
     /**
@@ -172,27 +230,10 @@ public class Pacman extends MovingGameElement implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        Direction newDirection = currentDirection;
-
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_UP:
-                newDirection = Direction.UP;
-                break;
-            case KeyEvent.VK_DOWN:
-                newDirection = Direction.DOWN;
-                break;
-            case KeyEvent.VK_LEFT:
-                newDirection = Direction.LEFT;
-                break;
-            case KeyEvent.VK_RIGHT:
-                newDirection = Direction.RIGHT;
-                break;
-            default:
-                break;
-        }
-        if (cell.getNeighbor(newDirection) != null && !cell.getNeighbor(newDirection).hasWall()) {
+        newDirection = this.keyDirectionMap.getOrDefault(e.getKeyCode(), null);
+        /*if (cell.getNeighbor(newDirection) != null && !cell.getNeighbor(newDirection).hasWall()) {
             currentDirection = newDirection;
-        }
+        }*/
     }
 
     @Override

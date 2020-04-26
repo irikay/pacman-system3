@@ -6,6 +6,8 @@
 
 package pacman_infd.Game;
 
+import pacman_infd.Elements.Ghost;
+
 /**
  *
  * @author Marinus
@@ -18,5 +20,11 @@ public interface GameEventListener {
     public void refocus();
     public void stopTime(int time);
     void levelIsWon();
+
+    void actionOnGhost(IGhostAction action);
+
+    interface IGhostAction{
+        void perform(Ghost ghost);
+    }
 
 }

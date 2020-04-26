@@ -14,6 +14,6 @@ import pacman_infd.Game.GameEventListener;
  */
 public interface Eatable {
     
-    public void eatMe();
-    public int getValue();
+    void eatMe();
+    int getValue();
 }

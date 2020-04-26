@@ -81,7 +81,7 @@ public class Portal extends GameElement {
             for (int i = 0; i < n; i++) {
                 g.setColor(new Color(i, 4 * i + 50, 255));
                 g.drawOval(
-                         x_pos + (cell_size / 2) - 20 + (i / 2),
+                        x_pos + (cell_size / 2) - 20 + (i / 2),
                         y_pos + (cell_size / 2) - 20 + (i / 2),
                         40 - i,
                         48 - i

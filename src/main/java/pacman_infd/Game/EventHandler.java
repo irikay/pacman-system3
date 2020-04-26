@@ -24,9 +24,13 @@ public class EventHandler implements ElementEventListener {
     private int timeEnterInSuperMode = 0;
     private int numberGhostEatenInSuperMode = 0;
 
+    private ICollision collision;
+
     EventHandler(GameEventListener gameEventListener, GameWorld gameWorld) {
         this.gameEventListener = gameEventListener;
         this.gameWorld = gameWorld;
+
+        this.collision = new GameCollisionsMap();
     }
 
     /**
@@ -37,8 +41,8 @@ public class EventHandler implements ElementEventListener {
         Cell cell = g.getCell();
 
         boolean pacmanFound = false;
-        for (MovingGameElement element : cell.getMovingElements()) {
-            if (element instanceof Pacman) {
+        for (MovingGameElement element : cell.getMovingElements(g)) {
+            if (element instanceof Pacman && element.isVisible()) {
                 pacmanFound = true;
                 break;
             }
@@ -58,13 +62,13 @@ public class EventHandler implements ElementEventListener {
 
         ArrayList<Eatable> eatables = new ArrayList();
 
-        if (cell.getStaticElement() instanceof Eatable) {
-            Eatable element = (Eatable) cell.getStaticElement();
+        if (cell.getStaticElement(p) instanceof Eatable) {
+            Eatable element = (Eatable) cell.getStaticElement(p);
             eatables.add(element);
         }
 
-        for (MovingGameElement element : cell.getMovingElements()) {
-            if (element instanceof Eatable) {
+        for (MovingGameElement element : cell.getMovingElements(p)) {
+            if (element instanceof Eatable && p.isVisible() && element.isVisible()) {
                 Eatable eatable = (Eatable) element;
                 eatables.add(eatable);
             }
@@ -87,6 +91,15 @@ public class EventHandler implements ElementEventListener {
             gameEventListener.refocus();
         } else if (e instanceof Ghost) {
             checkCollisions((Ghost) e);
+        }
+
+        //My collisions map
+        Cell cell = e.getCell();
+
+        if (cell != null) {
+            synchronized (cell) {
+                cell.checkCollision(this.collision, e, this.gameEventListener);
+            }
         }
 
     }

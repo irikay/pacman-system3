@@ -8,6 +8,7 @@ package pacman_infd.Elements;
 
 import pacman_infd.Game.Cell;
 import pacman_infd.Game.ElementEventListener;
+import pacman_infd.Game.GameEventListener;
 import pacman_infd.Game.SoundManager;
 
 import java.awt.Graphics;
@@ -63,5 +64,6 @@ public abstract class GameElement {
     {
         this.cell = cell;
     }
+
  
 }
